@@ -112,9 +112,9 @@ const userProfile = () => {
                                 </div>
                             </div>
                             <div className='w-full mb-2 mt-6 flex justify-between'>
-                                <Link href="home" className='border rounded-xl w-5/12'>
+                                <Link href="/user/login" className='border rounded-xl w-5/12 bg-red-500 text-white font-semibold font-mono'>
                                     <button className='w-full h-full p-2'>
-                                        Cancel
+                                        Log Out
                                     </button>
                                 </Link>
                                 <button className='border rounded-xl w-5/12 p-2' onClick={() => {

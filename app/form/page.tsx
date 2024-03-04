@@ -9,14 +9,16 @@ import { ChangeSpace } from '../utility/utility';
 const FormPage = () => {
 
     const [answer, setAnswer] = useState<FormAnswer>({})
-    
     const [provinces, setProvinces] = useState<[Province]>()
     const [cities, setCities] = useState<[City]>()
 
     async function loadProvince(){
         const api = process.env.GET_PROVINCE_API ? process.env.GET_PROVINCE_API : ""
-        const result = await fetch(api).then(response => response.json()).then(data => {
+
+        await fetch(api).then(response => response.json()).then(data => {
             setProvinces(data)
+            console.log(data[0]);
+            handleNewCity(data[0].country_id)
         })
     }
 
@@ -33,24 +35,24 @@ const FormPage = () => {
 
     async function handleNewCity(province : string){
         const api = process.env.GET_TOWN_API ? process.env.GET_TOWN_API : ""
-        console.log(province);
         
-        const result = await fetch(api + province).then(response => response.json()).then(data => {
+        await fetch(api + province).then(response => response.json()).then(data => {
             setCities(data)
-            console.log(data)
         })
     }
 
     function sendForm(){
         
-        // console.log(answer);
+        console.log(answer);
 
-        // for (const [key, value] of Object.entries(answer)){
-        //     console.log(key, value);
-            
-        // }
+        let finalAnswer = ""
+
+        for (const [key, value] of Object.entries(answer)){
+            console.log(key, value);
+            finalAnswer = finalAnswer + "," + value
+        }
         
-        // console.log("send");
+        console.log(finalAnswer);
         
     }
 
@@ -66,8 +68,9 @@ const FormPage = () => {
                                 Provinsi Domisili Usaha
                             </div>
                             <div>
-                                <select name="" id="" className='w-full p-2' onChange={(value) => {
-                                    handleNewCity(value.target.value)
+                                <select name="47" id="" value={"-"} className='w-full p-2' onChange={(event) => {
+                                    handleNewCity(event.target.value)
+                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
                                 }}>
                                     {provinces?.map((province) => {
                                         return(
@@ -82,7 +85,9 @@ const FormPage = () => {
                                 Provinsi Kabupaten/Kota Usaha
                             </div>
                             <div>
-                                <select name="" id="" className='w-full p-2'>
+                                <select name="48" id="" value={"-"} className='w-full p-2' onChange={(event) => {
+                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
+                                }}>
                                     {cities?.map((city) => {
                                         return(
                                             <option value={city.id} key={city.id}>{city.name}</option>
@@ -98,11 +103,13 @@ const FormPage = () => {
                             Sektor Usaha
                         </div>
                         <div>
-                            <select name="" id="" className='w-full p-2'>
-                                <option value="">Mikro (Aset s/d Rp. 50 jt & omzet penjualan tahunan s/d Rp. 300 jt)</option>
-                                <option value="">Kecil (Aset Rp. 50 jt - Rp. 500 jt & omzet penjualan tahunan s/d Rp. 300 jt - Rp. 2,5 Miliar)</option>
-                                <option value="">Menengah (Aset Rp. 500 jt - Rp. 10 Miliar & omzet penjualan tahunan s/d Rp. 2,5 Miliar - Rp. 50 Miliar)</option>
-                                <option value="">Besar (Aset &gt; Rp. 10 Miliar & omzet penjualan tahunan &gt; Rp. 50 Miliar)</option>
+                            <select name="49" id="" className='w-full p-2' onChange={(event) => {
+                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
+                                }}>
+                                <option value="1">Mikro (Aset s/d Rp. 50 jt & omzet penjualan tahunan s/d Rp. 300 jt)</option>
+                                <option value="2">Kecil (Aset Rp. 50 jt - Rp. 500 jt & omzet penjualan tahunan s/d Rp. 300 jt - Rp. 2,5 Miliar)</option>
+                                <option value="3">Menengah (Aset Rp. 500 jt - Rp. 10 Miliar & omzet penjualan tahunan s/d Rp. 2,5 Miliar - Rp. 50 Miliar)</option>
+                                <option value="4">Besar (Aset &gt; Rp. 10 Miliar & omzet penjualan tahunan &gt; Rp. 50 Miliar)</option>
                             </select>
                         </div>
                     </div>
@@ -112,18 +119,20 @@ const FormPage = () => {
                             Jenis Usaha
                         </div>
                         <div>
-                            <select name="" id="" className='w-full p-2'>
-                                <option value="">Usaha Pertanian (Agriculture): pertaniaan, kehutanan, perikanan, perkebunan, dll.</option>
-                                <option value="">Usaha Pertambangan (Mining): galian pasir, galian tanah, batu, bata, dll.</option>
-                                <option value="">Usaha Pabrikasi (Manufacturing): industri, assembly, sintesis, dll.</option>
-                                <option value="">Usaha Kontruksi (Contruction): kontruksi bangunan, jembatan, pengairan, jalan raya, dll.</option>
-                                <option value="">Usaha Perdagangan (Trade): perdagangan kecil (retailer), grosir, agen, ekspor-impor, dll.</option>
-                                <option value="">Usaha Jasa Keuangan (Financial Service): perbankkan, asuransi, koperasi, dll.</option>
-                                <option value="">Usaha Jasa Perorangan (Personal Service): potongan rambut, salon, loundry, catering, dll.</option>
-                                <option value="">Bidang Jasa-jasa Umum (Public Service): pengangkutan, pergudangan, wartel, distribusi, dll.</option>
-                                <option value="">Bidang Jasa Wisata (Tourism): biro perjalanan wisata, agen perjalanan wisata, pramuwista, konveksi perjalanan intensive dan pameran, impresariat, konsultan pariwisata, informasi pariwisata, dll.</option>
-                                <option value="">Usaha mikro (kuliner, fashion, pendidikan, otomotif, agrobisnis, teknologi internet, kerajinan tangan, elektronik/gadget)</option>
-                                <option value="">Lainnya</option>
+                            <select name="50" id="" className='w-full p-2' onChange={(event) => {
+                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
+                                }}>
+                                <option value="1">Usaha Pertanian (Agriculture): pertaniaan, kehutanan, perikanan, perkebunan, dll.</option>
+                                <option value="2">Usaha Pertambangan (Mining): galian pasir, galian tanah, batu, bata, dll.</option>
+                                <option value="3">Usaha Pabrikasi (Manufacturing): industri, assembly, sintesis, dll.</option>
+                                <option value="4">Usaha Kontruksi (Contruction): kontruksi bangunan, jembatan, pengairan, jalan raya, dll.</option>
+                                <option value="5">Usaha Perdagangan (Trade): perdagangan kecil (retailer), grosir, agen, ekspor-impor, dll.</option>
+                                <option value="6">Usaha Jasa Keuangan (Financial Service): perbankkan, asuransi, koperasi, dll.</option>
+                                <option value="7">Usaha Jasa Perorangan (Personal Service): potongan rambut, salon, loundry, catering, dll.</option>
+                                <option value="8">Bidang Jasa-jasa Umum (Public Service): pengangkutan, pergudangan, wartel, distribusi, dll.</option>
+                                <option value="9">Bidang Jasa Wisata (Tourism): biro perjalanan wisata, agen perjalanan wisata, pramuwista, konveksi perjalanan intensive dan pameran, impresariat, konsultan pariwisata, informasi pariwisata, dll.</option>
+                                <option value="10">Usaha mikro (kuliner, fashion, pendidikan, otomotif, agrobisnis, teknologi internet, kerajinan tangan, elektronik/gadget)</option>
+                                <option value="11">Lainnya</option>
                             </select>
                         </div>
                     </div>
@@ -133,10 +142,12 @@ const FormPage = () => {
                             Kegiatan Status Usaha
                         </div>
                         <div>
-                            <select name="" id="" className='w-full p-2'>
-                                <option value="">Sedang memulai usaha</option>
-                                <option value="">Usahanya telah berjalan</option>
-                                <option value="">Usahanya telah berjalan dan sedang merintis hal baru/pengembangan usaha</option>
+                            <select name="51" id="" className='w-full p-2' onChange={(event) => {
+                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
+                                }}>
+                                <option value="1">Sedang memulai usaha</option>
+                                <option value="2">Usahanya telah berjalan</option>
+                                <option value="3">Usahanya telah berjalan dan sedang merintis hal baru/pengembangan usaha</option>
                             </select>
                         </div>
                     </div>
@@ -147,9 +158,11 @@ const FormPage = () => {
                                 Jenis Kelamin
                             </div>
                             <div>
-                                <select name="" id="" className='w-full p-2'>
-                                    <option value="">Pria</option>
-                                    <option value="">Wanita</option>
+                                <select name="52" id="" className='w-full p-2' onChange={(event) => {
+                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
+                                }}>
+                                    <option value="1">Pria</option>
+                                    <option value="2">Wanita</option>
                                 </select>
                             </div>
                         </div>
@@ -158,11 +171,13 @@ const FormPage = () => {
                                 Usia
                             </div>
                             <div>
-                                <select name="" id="" className='w-full p-2'>
-                                    <option value="">&lt; 25 Tahun</option>
-                                    <option value="">25 - 40 Tahun</option>
-                                    <option value="">41 - 55 Tahun</option>
-                                    <option value="">&gt; 55 Tahun</option>
+                                <select name="53" id="" className='w-full p-2' onChange={(event) => {
+                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
+                                }}>
+                                    <option value="1">&lt; 25 Tahun</option>
+                                    <option value="2">25 - 40 Tahun</option>
+                                    <option value="3">41 - 55 Tahun</option>
+                                    <option value="4">&gt; 55 Tahun</option>
                                 </select>
                             </div>
                         </div>
@@ -171,14 +186,16 @@ const FormPage = () => {
                                 Pendidikan Terakhir
                             </div>
                             <div>
-                                <select name="" id="" className='w-full p-2'>
-                                    <option value="">SD</option>
-                                    <option value="">SMP</option>
-                                    <option value="">SMA</option>
-                                    <option value="">SMK</option>
-                                    <option value="">S1</option>
-                                    <option value="">S2</option>
-                                    <option value="">S3</option>
+                                <select name="54" id="" className='w-full p-2' onChange={(event) => {
+                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
+                                }}>
+                                    <option value="1">SD</option>
+                                    <option value="2">SMP</option>
+                                    <option value="3">SMA</option>
+                                    <option value="4">SMK</option>
+                                    <option value="5">S1</option>
+                                    <option value="6">S2</option>
+                                    <option value="7">S3</option>
                                 </select>
                             </div>
                         </div>
@@ -189,11 +206,13 @@ const FormPage = () => {
                             Pengalaman menjadi wirausahawan/wati 
                         </div>
                         <div>
-                            <select name="" id="" className='w-full p-2'>
-                                <option value="">&lt; 4 Tahun</option>
-                                <option value="">4 - 10 Tahun</option>
-                                <option value="">11 - 15 Tahun</option>
-                                <option value="">&gt; 15 Tahun</option>
+                            <select name="55" id="" className='w-full p-2' onChange={(event) => {
+                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
+                                }}>
+                                <option value="1">&lt; 4 Tahun</option>
+                                <option value="2">4 - 10 Tahun</option>
+                                <option value="3">11 - 15 Tahun</option>
+                                <option value="4">&gt; 15 Tahun</option>
                                 
                             </select>
                         </div>

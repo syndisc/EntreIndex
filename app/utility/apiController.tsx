@@ -1,24 +1,30 @@
-export async function SendAPIRequest(url: string, method: string, data: any, auth: boolean, router : any) {
-    try {
-        const response = await fetch(url, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
+import { toast } from "react-toastify";
 
-        if (!response.ok) {
-            throw new Error("Failed to send data");
-        } else {
-            console.log("hehe");
+function notify(msg : string){
+    toast(msg)
+}
 
-            if (auth) {
-                router.push("/home")
-            }
-        }
+export async function SendAPIRequest(url: string, method: string, data: any) {
+    const response = await fetch(url, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    });
+    console.log(response);
+    
+    return response
+}
 
-    } catch (error) {
-        console.error('Error : ', error);
-    }
+export async function SendAuthRequest(url : string, data : any, router : any){
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    });
+
+    notify("aaa")
 }

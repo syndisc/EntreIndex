@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import {RegisterField, RegisterDropdown } from "@/app/component/form/registerForm";
 import Link from "next/link";
 import { Register } from '@/app/model/user';
-import { SendAPIRequest } from '@/app/utility/apiController';
+import { SendAPIRequest, SendAuthRequest } from '@/app/utility/apiController';
 import { RegisterFieldProps } from '@/app/model/form';
 import { gender } from '@/app/utility/data';
 import { useRouter } from 'next/navigation';
@@ -41,7 +41,7 @@ const RegisterPage = () => {
 
   const handleRegister = () => { 
     const api = process.env.REGISTER_API ? process.env.REGISTER_API : ""
-    SendAPIRequest(api, "POST", registerData, true, router)
+    SendAuthRequest(api, registerData, router)
   };
 
   return (
