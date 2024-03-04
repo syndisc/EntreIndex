@@ -1,18 +1,57 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../component/navbar'
 import { FormAnswer } from '../model/form'
 import { options, questions } from '../utility/data'
+import { City, Province } from '../model/province'
+import { ChangeSpace } from '../utility/utility';
 
-const formPage = () => {
+const FormPage = () => {
 
     const [answer, setAnswer] = useState<FormAnswer>({})
+    
+    const [provinces, setProvinces] = useState<[Province]>()
+    const [cities, setCities] = useState<[City]>()
+
+    async function loadProvince(){
+        const api = process.env.GET_PROVINCE_API ? process.env.GET_PROVINCE_API : ""
+        const result = await fetch(api).then(response => response.json()).then(data => {
+            setProvinces(data)
+        })
+    }
+
+    useEffect(() => {
+        loadProvince()
+    }, [])
 
     function handleChanges(questionId : number, value:number){
         
         setAnswer({
             ...answer, [questionId] : value
         })
+    }
+
+    async function handleNewCity(province : string){
+        const api = process.env.GET_TOWN_API ? process.env.GET_TOWN_API : ""
+        console.log(province);
+        
+        const result = await fetch(api + province).then(response => response.json()).then(data => {
+            setCities(data)
+            console.log(data)
+        })
+    }
+
+    function sendForm(){
+        
+        // console.log(answer);
+
+        // for (const [key, value] of Object.entries(answer)){
+        //     console.log(key, value);
+            
+        // }
+        
+        // console.log("send");
+        
     }
 
     return (
@@ -27,8 +66,14 @@ const formPage = () => {
                                 Provinsi Domisili Usaha
                             </div>
                             <div>
-                                <select name="" id="" className='w-full p-2'>
-                                    <option value="">Jakarta</option>
+                                <select name="" id="" className='w-full p-2' onChange={(value) => {
+                                    handleNewCity(value.target.value)
+                                }}>
+                                    {provinces?.map((province) => {
+                                        return(
+                                            <option value={province.id} key={province.id}>{ChangeSpace(province.name)}</option>
+                                        )
+                                    })}
                                 </select>
                             </div>
                         </div>
@@ -38,7 +83,11 @@ const formPage = () => {
                             </div>
                             <div>
                                 <select name="" id="" className='w-full p-2'>
-                                    <option value="">Jakarta</option>
+                                    {cities?.map((city) => {
+                                        return(
+                                            <option value={city.id} key={city.id}>{city.name}</option>
+                                        )
+                                    })}
                                 </select>
                             </div>
                         </div>
@@ -152,7 +201,7 @@ const formPage = () => {
                     {/* Question */}
                     {questions.map((question) => {
                         return(
-                            <div className='w-full mb-2'>
+                            <div className='w-full mb-2' key={question.id}>
                                 <div className='text-xl font-bold font-mono'>
                                     {question.question}
                                 </div>
@@ -175,6 +224,9 @@ const formPage = () => {
                             </div>
                         )
                     })}
+                    <div>
+                        <button className='border w-full rounded-3xl' onClick={sendForm}>Selesai</button>
+                    </div>
                     
                 </div>
             </div>
@@ -182,4 +234,4 @@ const formPage = () => {
     )
 }
 
-export default formPage
+export default FormPage
