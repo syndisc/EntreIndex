@@ -12,8 +12,6 @@ export async function SendAPIRequest(url: string, method: string, data: any) {
         },
         body: JSON.stringify(data)
     });
-    console.log(response);
-    
     return response
 }
 

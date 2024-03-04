@@ -1,23 +1,31 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import Navbar from '../component/navbar'
-import { FormAnswer } from '../model/form'
+import { FormAnswer, FormProfile } from '../model/form'
 import { options, questions } from '../utility/data'
 import { City, Province } from '../model/province'
 import { ChangeSpace } from '../utility/utility';
+import { SendAPIRequest } from '../utility/apiController'
 
 const FormPage = () => {
 
     const [answer, setAnswer] = useState<FormAnswer>({})
     const [provinces, setProvinces] = useState<[Province]>()
     const [cities, setCities] = useState<[City]>()
+    const [chosenCity, setChosenCity] = useState<number>()
+    const [profile,setProfile] = useState<FormProfile>({
+        sector : 1,
+        type  : 1,
+        activity  : 1,
+        education  : 1,
+        experience : 1,
+    })
 
     async function loadProvince(){
         const api = process.env.GET_PROVINCE_API ? process.env.GET_PROVINCE_API : ""
 
         await fetch(api).then(response => response.json()).then(data => {
             setProvinces(data)
-            console.log(data[0]);
             handleNewCity(data[0].country_id)
         })
     }
@@ -27,9 +35,14 @@ const FormPage = () => {
     }, [])
 
     function handleChanges(questionId : number, value:number){
-        
         setAnswer({
             ...answer, [questionId] : value
+        })
+    }
+
+    function handleProfile(field : string, value : number){
+        setProfile({
+            ...profile, [field] : value
         })
     }
 
@@ -38,22 +51,37 @@ const FormPage = () => {
         
         await fetch(api + province).then(response => response.json()).then(data => {
             setCities(data)
+            setChosenCity(data[0].id)
         })
     }
 
     function sendForm(){
-        
-        console.log(answer);
 
         let finalAnswer = ""
+        let finalProfile = ""
 
-        for (const [key, value] of Object.entries(answer)){
-            console.log(key, value);
-            finalAnswer = finalAnswer + "," + value
+        for(const [key, value] of Object.entries(answer)){
+            finalAnswer += value + ","
         }
         
-        console.log(finalAnswer);
+        for(const [key, value] of Object.entries(profile)){
+            finalProfile += value + ","
+        }
         
+        finalAnswer = finalAnswer.slice(0,-1)
+        finalProfile = finalProfile.slice(0,-1)
+
+
+        const body = {
+            user_id : 1,
+            city_id : chosenCity,
+            answer : finalAnswer,
+            profile : finalProfile
+        }
+
+        const api = process.env.POST_ANSWER_API ? process.env.POST_ANSWER_API : ""
+
+        SendAPIRequest(api, "POST", body)       
     }
 
     return (
@@ -64,13 +92,12 @@ const FormPage = () => {
                     {/* Domisili Provinsi dan Kabupaten/Kota*/}
                     <div className='flex justify-between mb-2'>
                         <div className='w-5/12 mb-2'>
-                            <div className='text-xl font-bold font-mono'>
+                            <div className='text-xl font-bold '>
                                 Provinsi Domisili Usaha
                             </div>
                             <div>
-                                <select name="47" id="" value={"-"} className='w-full p-2' onChange={(event) => {
+                                <select className='w-full p-2' onChange={(event) => {
                                     handleNewCity(event.target.value)
-                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
                                 }}>
                                     {provinces?.map((province) => {
                                         return(
@@ -81,11 +108,11 @@ const FormPage = () => {
                             </div>
                         </div>
                         <div className='w-5/12 mb-2'>
-                            <div className='text-xl font-bold font-mono'>
+                            <div className='text-xl font-bold '>
                                 Provinsi Kabupaten/Kota Usaha
                             </div>
                             <div>
-                                <select name="48" id="" value={"-"} className='w-full p-2' onChange={(event) => {
+                                <select className='w-full p-2' onChange={(event) => {
                                     handleChanges(parseInt(event.target.name), parseInt(event.target.value))
                                 }}>
                                     {cities?.map((city) => {
@@ -99,12 +126,12 @@ const FormPage = () => {
                     </div>
                     {/* Sektor Usaha */}
                     <div className='w-full mb-2'>
-                        <div className='text-xl font-bold font-mono'>
+                        <div className='text-xl font-bold '>
                             Sektor Usaha
                         </div>
                         <div>
-                            <select name="49" id="" className='w-full p-2' onChange={(event) => {
-                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
+                            <select name="sector" id="" className='w-full p-2' onChange={(event) => {
+                                    handleProfile(event.target.name, parseInt(event.target.value))
                                 }}>
                                 <option value="1">Mikro (Aset s/d Rp. 50 jt & omzet penjualan tahunan s/d Rp. 300 jt)</option>
                                 <option value="2">Kecil (Aset Rp. 50 jt - Rp. 500 jt & omzet penjualan tahunan s/d Rp. 300 jt - Rp. 2,5 Miliar)</option>
@@ -115,12 +142,12 @@ const FormPage = () => {
                     </div>
                     {/* Jenis Usaha */}
                     <div className='w-full mb-2'>
-                        <div className='text-xl font-bold font-mono'>
+                        <div className='text-xl font-bold '>
                             Jenis Usaha
                         </div>
                         <div>
-                            <select name="50" id="" className='w-full p-2' onChange={(event) => {
-                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
+                            <select name="type" id="" className='w-full p-2' onChange={(event) => {
+                                    handleProfile(event.target.name, parseInt(event.target.value))
                                 }}>
                                 <option value="1">Usaha Pertanian (Agriculture): pertaniaan, kehutanan, perikanan, perkebunan, dll.</option>
                                 <option value="2">Usaha Pertambangan (Mining): galian pasir, galian tanah, batu, bata, dll.</option>
@@ -138,12 +165,12 @@ const FormPage = () => {
                     </div>
                     {/* Kategori Status Usaha */}
                     <div className='w-full mb-2'>
-                        <div className='text-xl font-bold font-mono'>
+                        <div className='text-xl font-bold '>
                             Kegiatan Status Usaha
                         </div>
                         <div>
-                            <select name="51" id="" className='w-full p-2' onChange={(event) => {
-                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
+                            <select name="activity" id="" className='w-full p-2' onChange={(event) => {
+                                    handleProfile(event.target.name, parseInt(event.target.value))
                                 }}>
                                 <option value="1">Sedang memulai usaha</option>
                                 <option value="2">Usahanya telah berjalan</option>
@@ -151,63 +178,33 @@ const FormPage = () => {
                             </select>
                         </div>
                     </div>
-                    {/* Jenis Kelamin, Usia, dan Pendidikan Terakhir */}
-                    <div className='flex justify-between mb-2'>
-                        <div className='w-1/4 mb-2'>
-                            <div className='text-xl font-bold font-mono'>
-                                Jenis Kelamin
-                            </div>
-                            <div>
-                                <select name="52" id="" className='w-full p-2' onChange={(event) => {
-                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
-                                }}>
-                                    <option value="1">Pria</option>
-                                    <option value="2">Wanita</option>
-                                </select>
-                            </div>
+                    {/* Pendidikan Terakhir */}
+                    <div className='w-full mb-2'>
+                        <div className='text-xl font-bold '>
+                            Pendidikan Terakhir
                         </div>
-                        <div className='w-1/4 mb-2'>
-                            <div className='text-xl font-bold font-mono'>
-                                Usia
-                            </div>
-                            <div>
-                                <select name="53" id="" className='w-full p-2' onChange={(event) => {
-                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
-                                }}>
-                                    <option value="1">&lt; 25 Tahun</option>
-                                    <option value="2">25 - 40 Tahun</option>
-                                    <option value="3">41 - 55 Tahun</option>
-                                    <option value="4">&gt; 55 Tahun</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className='w-1/4 mb-2'>
-                            <div className='text-xl font-bold font-mono'>
-                                Pendidikan Terakhir
-                            </div>
-                            <div>
-                                <select name="54" id="" className='w-full p-2' onChange={(event) => {
-                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
-                                }}>
-                                    <option value="1">SD</option>
-                                    <option value="2">SMP</option>
-                                    <option value="3">SMA</option>
-                                    <option value="4">SMK</option>
-                                    <option value="5">S1</option>
-                                    <option value="6">S2</option>
-                                    <option value="7">S3</option>
-                                </select>
-                            </div>
+                        <div>
+                            <select name="54" id="" className='w-full p-2' onChange={(event) => {
+                                handleChanges(parseInt(event.target.name), parseInt(event.target.value))
+                            }}>
+                                <option value="1">SD</option>
+                                <option value="2">SMP</option>
+                                <option value="3">SMA</option>
+                                <option value="4">SMK</option>
+                                <option value="5">S1</option>
+                                <option value="6">S2</option>
+                                <option value="7">S3</option>
+                            </select>
                         </div>
                     </div>
                     {/* Pengalaman Menjadi wirausahawan/wati */}
                     <div className='w-full mb-2'>
-                        <div className='text-xl font-bold font-mono'>
+                        <div className='text-xl font-bold '>
                             Pengalaman menjadi wirausahawan/wati 
                         </div>
                         <div>
-                            <select name="55" id="" className='w-full p-2' onChange={(event) => {
-                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
+                            <select name="experience" id="" className='w-full p-2' onChange={(event) => {
+                                    handleProfile(event.target.name, parseInt(event.target.value))
                                 }}>
                                 <option value="1">&lt; 4 Tahun</option>
                                 <option value="2">4 - 10 Tahun</option>
@@ -221,7 +218,7 @@ const FormPage = () => {
                     {questions.map((question) => {
                         return(
                             <div className='w-full mb-2' key={question.id}>
-                                <div className='text-xl font-bold font-mono'>
+                                <div className='text-xl font-bold '>
                                     {question.question}
                                 </div>
                                 <div className='w-full justify-between flex'>

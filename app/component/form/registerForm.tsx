@@ -18,8 +18,6 @@ export const RegisterField: React.FC<RegisterFieldProps> = ({ label, type,onChan
 export const RegisterDropdown: React.FC<RegisterDropdownProps> = ({label, options, onChange}) => {
     
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        console.log(event.target.value);
-        
         onChange(event.target.value);
     };
 

@@ -1,5 +1,13 @@
 export interface FormAnswer{
-    [key: number] : number
+    [key: string] : number
+}
+
+export interface FormProfile{
+    sector : number,
+    type : number,
+    activity : number,
+    education : number,
+    experience : number
 }
 
 export interface RegisterFieldProps {
