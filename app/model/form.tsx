@@ -2,6 +2,14 @@ export interface FormAnswer{
     [key: string] : number
 }
 
+export interface Answer{
+    id : number,
+    user_id : number,
+    city_id : number,
+    answer : string,
+    profile : string
+}
+
 export interface FormProfile{
     sector : number,
     type : number,

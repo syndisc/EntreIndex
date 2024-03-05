@@ -7,6 +7,7 @@ import { SendAPIRequest, SendAuthRequest } from '@/app/utility/apiController';
 import { RegisterFieldProps } from '@/app/model/form';
 import { gender } from '@/app/utility/data';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const RegisterPage = () => {
 
@@ -17,7 +18,8 @@ const RegisterPage = () => {
     gender : "Male",
     company : "",
     email : "",
-    password : ""
+    password : "",
+    dob : ""
   })
 
   const handleFieldChange = (fieldName: string, value: string) => {
@@ -27,15 +29,6 @@ const RegisterPage = () => {
     }))
     
   };
-
-  const registerFields: RegisterFieldProps[] = [
-    { label: "First Name", type: "text", onChange: (value: string) => handleFieldChange("first_name", value) },
-    { label: "Last Name", type: "text", onChange: (value: string) => handleFieldChange("last_name", value) },
-    { label: "Email", type: "email",  onChange: (value: string) => handleFieldChange("email", value) },
-    { label: "Password", type: "password",  onChange: (value: string) => handleFieldChange("password", value) },
-    { label: "Company", type: "text", onChange: (value: string) => handleFieldChange("company", value) },
-    { label: "Phone Number", type: "text", onChange: (value: string) => handleFieldChange("phone_number", value) },
-  ];
 
   const router = useRouter()
 
@@ -47,24 +40,79 @@ const RegisterPage = () => {
   return (
     <div className="w-screen h-screen bg-primaryLight dark:bg-primaryDark p-2 flex justify-center content-center flex-wrap">
       <div className="w-3/5 flex h-2/3">
-        <div className="w-1/2 h-full bg-secondaryLight dark:bg-secondaryDark p-2 rounded-l-3xl flex justify-center content-center flex-wrap flex-col">
+        <div className="w-full lg:w-1/2 h-full bg-secondaryLight dark:bg-secondaryDark p-2 rounded-l-3xl rounded-r-3xl lg:rounded-r-none flex justify-center content-center flex-wrap flex-col">
           <div className="text-textLight dark:text-textDark h-auto w-2/3">
-            <div className="text-6xl font-bold">Register Page</div>
-            {registerFields.map((field, index) => (
-              <RegisterField key={index} {...field} />
-            ))}
-              <RegisterDropdown label='Gender' options={gender} onChange={(value: string) => handleFieldChange('gender', value)}/>
-            <label htmlFor="" className="flex">
+            <div className="text-5xl font-bold">Register Page</div>
+
+            {/* Name */}
+            <div className='flex mt-2 justify-between'>
+              <div className="flex flex-col w-47.5/100">
+                <label htmlFor="">{"First Name"}</label>
+                <input type="text" onChange={(e) => {
+                  handleFieldChange("first_name", e.target.value)
+                }} className="border rounded-3xl py-1 px-2"/>
+              </div>
+              <div className="flex flex-col w-47.5/100">
+                <label htmlFor="">{"Last Name"}</label>
+                <input type="text" onChange={(e) => {
+                  handleFieldChange("last_name", e.target.value)
+                }} className="border rounded-3xl py-1 px-2"/>
+              </div>
+            </div>
+
+            {/* Phone number */}
+            <div className="flex flex-col w-full">
+              <label htmlFor="">{"Phone Number"}</label>
+              <input type="text" onChange={(e) => {
+                handleFieldChange("phone_number", e.target.value)
+              }} className="border rounded-3xl py-1 px-2"/>
+            </div>
+
+            <RegisterDropdown label='Gender' options={gender} onChange={(value: string) => handleFieldChange('gender', value)}/>
+
+            {/* Company */}
+            <div className="flex flex-col w-full">
+              <label htmlFor="">{"Company"}</label>
+              <input type="text" onChange={(e) => {
+                handleFieldChange("company", e.target.value)
+              }} className="border rounded-3xl py-1 px-2"/>
+            </div>
+
+            {/* Email */}
+            <div className="flex flex-col w-full">
+              <label htmlFor="">{"Email"}</label>
+              <input type="email" onChange={(e) => {
+                handleFieldChange("email", e.target.value)
+              }} className="border rounded-3xl py-1 px-2"/>
+            </div>
+
+            {/* Password */}
+            <div className="flex flex-col w-full">
+              <label htmlFor="">{"Password"}</label>
+              <input type="password" onChange={(e) => {
+                handleFieldChange("password", e.target.value)
+              }} className="border rounded-3xl py-1 px-2"/>
+            </div>
+
+            {/* DoB */}
+            <div className="flex flex-col w-full">
+              <label htmlFor="">{"Date of Birth"}</label>
+              <input type="date" onChange={(e) => {
+                handleFieldChange("dob", e.target.value)
+              }} className="border rounded-3xl py-1 px-2 w-full"/>
+            </div>
+
+            <label htmlFor="" className="flex mt-2">
               <div>Already have an account?</div>
-              <Link href={"login"} className='pl-2'>Login</Link>
+              <Link href={"login"} className='pl-2 text-blue-400 font-bold'>Login</Link>
             </label>
-            <div className='w-full'>
-              <button className='w-full border rounded-3xl p-2' onClick={handleRegister}>Register</button>
+            <div className='w-full mt-2'>
+              <button className='w-full border rounded-3xl p-2 bg-green-400' onClick={handleRegister}>Register</button>
             </div>
           </div>
         </div>
-        <div className="w-1/2 h-full flex justify-center content-center flex-wrap p-2 bg-accentLight dark:bg-accentDark rounded-r-3xl">
-          <img src="/images/login.webp" alt="Not found" className="h-4/5 w-4/5" />
+        <div className="w-1/2 h-full hidden lg:flex justify-center content-center flex-wrap p-2 bg-accentLight dark:bg-accentDark rounded-r-3xl">
+          <Image height={500} width={500} src="/images/login.webp" alt="Not found" className="h-4/5 w-4/5" />
         </div>
       </div>
     </div>

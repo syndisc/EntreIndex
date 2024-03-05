@@ -6,6 +6,7 @@ import { options, questions } from '../utility/data'
 import { City, Province } from '../model/province'
 import { ChangeSpace } from '../utility/utility';
 import { SendAPIRequest } from '../utility/apiController'
+import { User } from '../model/user'
 
 const FormPage = () => {
 
@@ -20,6 +21,21 @@ const FormPage = () => {
         education  : 1,
         experience : 1,
     })
+
+    const [user, setUser] = useState<User>()
+
+    useEffect(() => {
+        async function LoadUser(){
+        const cookie = document.cookie
+        const [cookieName, cookieValue] = cookie.split("=")
+        const api = process.env.DECODE_TOKEN_API ? process.env.DECODE_TOKEN_API + cookieValue: ""
+        const res = await fetch(api)
+        const user = await res.json()
+        setUser(user)
+        }
+
+        LoadUser()
+    }, [])
 
     async function loadProvince(){
         const api = process.env.GET_PROVINCE_API ? process.env.GET_PROVINCE_API : ""
@@ -73,7 +89,7 @@ const FormPage = () => {
 
 
         const body = {
-            user_id : 1,
+            user_id : user?.id,
             city_id : chosenCity,
             answer : finalAnswer,
             profile : finalProfile

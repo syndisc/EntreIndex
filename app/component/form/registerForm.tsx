@@ -8,7 +8,7 @@ export const RegisterField: React.FC<RegisterFieldProps> = ({ label, type,onChan
     };
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col mt-2">
             <label htmlFor="">{label}</label>
             <input type={type} onChange={handleChange} className="border rounded-3xl py-1 px-2"/>
         </div>

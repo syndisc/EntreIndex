@@ -11,4 +11,11 @@ export interface Register{
     company : string,
     email : string,
     password : string
+    dob : string
+}
+
+export interface User{
+    id : string,
+    first_name : string,
+    last_name : string
 }

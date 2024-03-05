@@ -6,7 +6,9 @@ const nextConfig = {
         SUBMIT_FORM_API : process.env.SUBMIT_FORM_API,
         GET_PROVINCE_API : process.env.GET_PROVINCE_API,
         GET_TOWN_API : process.env.GET_TOWN_API,
-        POST_ANSWER_API : process.env.POST_ANSWER_API
+        POST_ANSWER_API : process.env.POST_ANSWER_API,
+        DECODE_TOKEN_API : process.env.DECODE_TOKEN_API,
+        GET_USER_ANSWER_API : process.env.GET_USER_ANSWER_API
     }
 };
 
