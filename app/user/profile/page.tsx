@@ -1,6 +1,7 @@
 "use client"
 import Navbar from '@/app/component/navbar'
 import { SendAPIRequest } from '@/app/utility/apiController';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
@@ -38,7 +39,7 @@ const userProfile = () => {
                     <div className='flex justify-between'>
                         {/* left part */}
                         <div className='w-1/4'>
-                            <img className='w-full aspect-square object-contain rounded-full border' src="/images/logo.png" alt="hello" />
+                            <Image width={100} height={100} className='w-full aspect-square object-contain rounded-full border' src="/images/logo.png" alt="hello" />
                         </div>
                         {/* right part */}
                         <div className='w-2/3'>
