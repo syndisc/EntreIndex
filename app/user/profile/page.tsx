@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
-const userProfile = () => {
+const UserProfile = () => {
 
     const [firstName, setFirstName] = React.useState<String>("");
     const [lastName, setLastName] = React.useState<String>("");
@@ -132,4 +132,4 @@ const userProfile = () => {
     )
 }
 
-export default userProfile
+export default UserProfile

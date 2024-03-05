@@ -30,9 +30,6 @@ const LoginPage = () => {
     const api = process.env.LOGIN_API ? process.env.LOGIN_API : ""
     
     SendAuthRequest(api, loginData, router)
-    // if(!result){
-    //   notify()
-    // }
   }
 
   return (
