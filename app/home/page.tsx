@@ -1,6 +1,5 @@
 import React from 'react'
 import Navbar from '../component/navbar'
-import CardLineChart from '../component/LineChart'
 import HomeDropdown from './homeDropdown'
 
 const page = () => {
