@@ -1,10 +1,10 @@
 "use client"
 import React from "react";
-import Chart from "chart.js";
+import Chart, { ChartConfiguration } from "chart.js";
 
 export default function CardLineChart() {
   React.useEffect(() => {
-    var config = {
+    var config : ChartConfiguration = {
       type: "line",
       data: {
         labels: [
@@ -15,35 +15,34 @@ export default function CardLineChart() {
           "May",
           "June",
           "July",
+          "august", 
+          "september",
+          "october",
+          "november",
+          "december"
+        
         ],
         datasets: [
           {
-            label: new Date().getFullYear(),
+            label: "Entrepreneurship Index",
             backgroundColor: "#3182ce",
-            borderColor: "#3182ce",
-            data: [65, 78, 66, 44, 56, 67, 11, 23, 14, 64, 89],
+            borderColor: "#3183ce",
+            data: [65, 78, 66, 44, 56, 67, 11, 23, 14, 64, 89, 23],
             fill: false,
-          },
-          {
-            label: new Date().getFullYear() - 1,
-            fill: false,
-            backgroundColor: "#edf2f7",
-            borderColor: "#edf2f7",
-            data: [40, 68, 86, 74, 56, 60, 87, 78, 66, 44, 56],
-          },
+          }
         ],
       },
       options: {
         maintainAspectRatio: false,
         responsive: true,
         title: {
-          display: false,
-          text: "Sales Charts",
+          display: true,
+          text: "Entrepreneurship Index",
           fontColor: "white",
         },
         legend: {
           labels: {
-            fontColor: "white",
+            fontColor: "black",
           },
           align: "end",
           position: "bottom",
@@ -104,8 +103,13 @@ export default function CardLineChart() {
         },
       },
     };
-    // var ctx = document.getElementById("line-chart").getContext("2d");
-    // window.myLine = new Chart(ctx, config);
+    var ctx = (document.getElementById("line-chart") as HTMLCanvasElement)?.getContext("2d");
+    if (ctx) {
+      new Chart(ctx, config);
+    } else {
+      console.error("Canvas element not found");
+    }
+    
   }, []);
   return (
     <>

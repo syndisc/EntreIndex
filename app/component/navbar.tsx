@@ -34,9 +34,10 @@ const Navbar = () => {
               </div>
             </div>
         </Link>
-        <div className='w-1/5 flex justify-around content-center flex-wrap font-bold text-2xl text-textLight dark:text-textDark pr-4'>
+        <div className='w-auto gap-2 flex justify-around content-center flex-wrap font-bold text-lg text-textLight dark:text-textDark pr-4'>
             <Link href={"/form"}>Form</Link>
             <Link href={"/answer"}>My Answer</Link>
+            <Link href={"/data"}>Data</Link>
             <Link href={"user/profile"}>Profile</Link>
         </div>
     </div>
