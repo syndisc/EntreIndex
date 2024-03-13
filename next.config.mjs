@@ -9,7 +9,9 @@ const nextConfig = {
         POST_ANSWER_API : process.env.POST_ANSWER_API,
         DECODE_TOKEN_API : process.env.DECODE_TOKEN_API,
         GET_USER_ANSWER_API : process.env.GET_USER_ANSWER_API,
-        GET_CITY_API : process.env.GET_CITY_API
+        GET_CITY_API : process.env.GET_CITY_API,
+        GET_MIN_MAX_TOTAL_API : process.env.GET_MIN_MAX_TOTAL_API,
+        GET_ANSWER_BY_CITY_API : process.env.GET_ANSWER_BY_CITY_API
     }
 };
 
