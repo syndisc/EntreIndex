@@ -24,7 +24,7 @@ export const RegisterDropdown: React.FC<RegisterDropdownProps> = ({label, option
     return (
         <div className="flex flex-col">
             <label htmlFor="">{label}</label>
-            <select className="border rounded-3xl py-1 px-2" onChange={handleChange}>
+            <select className="border rounded-3xl py-1 px-2 dark:text-black" onChange={handleChange}>
                 {options.map((option) => {
                     return(
                         <option value={option} key={option}>

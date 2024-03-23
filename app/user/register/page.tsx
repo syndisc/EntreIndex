@@ -50,13 +50,13 @@ const RegisterPage = () => {
                 <label htmlFor="">{"First Name"}</label>
                 <input type="text" onChange={(e) => {
                   handleFieldChange("first_name", e.target.value)
-                }} className="border rounded-3xl py-1 px-2"/>
+                }} className="border rounded-3xl py-1 px-2 dark:text-black"/>
               </div>
               <div className="flex flex-col w-47.5/100">
                 <label htmlFor="">{"Last Name"}</label>
                 <input type="text" onChange={(e) => {
                   handleFieldChange("last_name", e.target.value)
-                }} className="border rounded-3xl py-1 px-2"/>
+                }} className="border rounded-3xl py-1 px-2 dark:text-black"/>
               </div>
             </div>
 
@@ -65,7 +65,7 @@ const RegisterPage = () => {
               <label htmlFor="">{"Phone Number"}</label>
               <input type="text" onChange={(e) => {
                 handleFieldChange("phone_number", e.target.value)
-              }} className="border rounded-3xl py-1 px-2"/>
+              }} className="border rounded-3xl py-1 px-2 dark:text-black"/>
             </div>
 
             <RegisterDropdown label='Gender' options={gender} onChange={(value: string) => handleFieldChange('gender', value)}/>
@@ -75,7 +75,7 @@ const RegisterPage = () => {
               <label htmlFor="">{"Company"}</label>
               <input type="text" onChange={(e) => {
                 handleFieldChange("company", e.target.value)
-              }} className="border rounded-3xl py-1 px-2"/>
+              }} className="border rounded-3xl py-1 px-2 dark:text-black"/>
             </div>
 
             {/* Email */}
@@ -83,7 +83,7 @@ const RegisterPage = () => {
               <label htmlFor="">{"Email"}</label>
               <input type="email" onChange={(e) => {
                 handleFieldChange("email", e.target.value)
-              }} className="border rounded-3xl py-1 px-2"/>
+              }} className="border rounded-3xl py-1 px-2 dark:text-black"/>
             </div>
 
             {/* Password */}
@@ -91,7 +91,7 @@ const RegisterPage = () => {
               <label htmlFor="">{"Password"}</label>
               <input type="password" onChange={(e) => {
                 handleFieldChange("password", e.target.value)
-              }} className="border rounded-3xl py-1 px-2"/>
+              }} className="border rounded-3xl py-1 px-2 dark:text-black"/>
             </div>
 
             {/* DoB */}
@@ -99,7 +99,7 @@ const RegisterPage = () => {
               <label htmlFor="">{"Date of Birth"}</label>
               <input type="date" onChange={(e) => {
                 handleFieldChange("dob", e.target.value)
-              }} className="border rounded-3xl py-1 px-2 w-full"/>
+              }} className="border rounded-3xl py-1 px-2 w-full dark:text-black"/>
             </div>
 
             <label htmlFor="" className="flex mt-2">

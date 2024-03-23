@@ -44,9 +44,9 @@ const LoginPage = () => {
           </div>
           <div className='flex flex-col h-2/5'>
 
-            <div className='flex flex-col h-auto mt-2'>
+            <div className='flex flex-col h-auto mt-2 '>
               <label htmlFor="" className='text-sm ps-2'>Email</label>
-              <input type="email" className='h-12 rounded-3xl p-2 border' name='email' onChange={(e) => {
+              <input type="email" className='h-12 rounded-3xl p-2 border dark:text-black' name='email' onChange={(e) => {
                 handleChanges(e)
               }}/>
             </div>
@@ -54,7 +54,7 @@ const LoginPage = () => {
             <div className='flex flex-col h-auto mt-2'>
               <label htmlFor="" className='text-sm ps-2'>Password</label>
               <div className='h-12'>
-                <input type={fieldType} className='w-11/12 h-full rounded-l-3xl p-2 border' name='password' onChange={(e) => {
+                <input type={fieldType} className='w-11/12 h-full rounded-l-3xl p-2 border dark:text-black' name='password' onChange={(e) => {
                   handleChanges(e)
                 }}/>
                 <button className='w-1/12 h-full bg-accentLight rounded-r-3xl p-2' onMouseDown={() => {

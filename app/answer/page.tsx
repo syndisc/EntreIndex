@@ -14,17 +14,26 @@ const FormPage = () => {
 
     const [chartData, setChartData] = useState<AnswerChart>()
 
-    const [user, setUser] = useState<User>()
+    const [user, setUser] = useState<User>({
+        id : "",
+        first_name :"",
+        last_name : ""
+    })
 
     useEffect(() => {
         async function LoadUser(){
-            // Fetch user data
-            const cookie = document.cookie
-            const [cookieName, cookieValue] = cookie.split("=")
-            const userAPI = process.env.DECODE_TOKEN_API ? process.env.DECODE_TOKEN_API + cookieValue: ""
-            const userRes = await fetch(userAPI)
-            const user = await userRes.json()
-            setUser(user)
+             const authCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('auth='));
+
+            if (authCookie) {
+                const [, cookieValue] = authCookie.split("=");
+                const userAPI = process.env.DECODE_TOKEN_API ? process.env.DECODE_TOKEN_API + cookieValue : "";
+                const userRes = await fetch(userAPI);
+                const user = await userRes.json();
+                setUser(user);
+
+            } else {
+                console.log("Auth cookie not found.");
+            }
 
             const answersAPI = process.env.GET_USER_ANSWER_API ? process.env.GET_USER_ANSWER_API + user.id : ""
             const answersRes = await fetch(answersAPI)

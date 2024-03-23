@@ -10,12 +10,18 @@ const Navbar = () => {
 
   useEffect(() => {
     async function LoadUser(){
-      const cookie = document.cookie
-      const [cookieName, cookieValue] = cookie.split("=")
-      const api = process.env.DECODE_TOKEN_API ? process.env.DECODE_TOKEN_API + cookieValue: ""
-      const res = await fetch(api)
-      const user = await res.json()
-      setUser(user)
+      const authCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('auth='));
+
+      if (authCookie) {
+          const [, cookieValue] = authCookie.split("=");
+          const userAPI = process.env.DECODE_TOKEN_API ? process.env.DECODE_TOKEN_API + cookieValue : "";
+          const userRes = await fetch(userAPI);
+          const user = await userRes.json();
+          setUser(user);
+
+      } else {
+          console.log("Auth cookie not found.");
+      }
     }
 
     LoadUser()
