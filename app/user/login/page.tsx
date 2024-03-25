@@ -36,7 +36,7 @@ const LoginPage = () => {
     <div className='w-screen h-screen bg-primaryLight dark:bg-primaryDark p-2 flex justify-center content-center flex-wrap'>
       <div className='w-3/5 flex h-2/3'>
         <div className='w-1/2 h-full hidden lg:flex justify-center content-center flex-wrap p-2 bg-accentLight dark:bg-accentDark rounded-l-3xl'>
-          <Image width={500} height={500} src="/images/login.webp" alt="Not found" className='h-4/5 w-4/5'/>
+          <Image width={500} height={500} src="/images/auth.png" alt="Not found" className='h-4/5 w-4/5'/>
         </div>
         <div className='w-full lg:w-1/2 h-full bg-secondaryLight dark:bg-secondaryDark p-2 rounded-l-3xl rounded-r-3xl lg:rounded-l-none flex justify-center content-center flex-wrap flex-col'>
           <div className='text-6xl font-bold text-textLight dark:text-textDark h-auto w-2/3'>

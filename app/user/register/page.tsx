@@ -112,7 +112,7 @@ const RegisterPage = () => {
           </div>
         </div>
         <div className="w-1/2 h-full hidden lg:flex justify-center content-center flex-wrap p-2 bg-accentLight dark:bg-accentDark rounded-r-3xl">
-          <Image height={500} width={500} src="/images/login.webp" alt="Not found" className="h-4/5 w-4/5" />
+          <Image height={500} width={500} src="/images/auth.png" alt="Not found" className="h-4/5 w-4/5" />
         </div>
       </div>
     </div>
