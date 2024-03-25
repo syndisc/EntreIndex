@@ -49,17 +49,19 @@ const UserProfilePage = () => {
             <Navbar/>
             <div className='w-full h-93.2vh flex flex-wrap justify-center content-center bg-primaryLight dark:bg-primaryDark'>
                 <div className='bg-secondaryLight dark:bg-secondaryDark w-2/5 h-3/4 p-6 rounded-3xl'>
-                    <div className='font-bold text-3xl font-mono mb-6'>
-                        Profile Page
-                    </div>
+                    
                     {/* content */}
                     <div className='flex justify-between'>
                         {/* left part */}
-                        <div className='w-1/4'>
-                            <Image width={100} height={100} className='w-full aspect-square object-contain rounded-full border' src="/images/logo.png" alt="hello" />
+                        <div className='w-1/4 flex items-center'>
+                            <Image width={100} height={100} className='w-full aspect-square object-contain rounded-full border' 
+                            src="/images/profile.png" alt="hello" />
                         </div>
                         {/* right part */}
                         <div className='w-2/3'>
+                        <div className='font-bold text-3xl mb-6 flex justify-center'>
+                            Profile Page
+                        </div>
                             {/* name */}
                             <div className='flex justify-between mb-2'>
                                 <div className='w-5/12'>
@@ -130,16 +132,18 @@ const UserProfilePage = () => {
                                 </div>
                             </div>
                             <div className='w-full mb-2 mt-6 flex justify-between'>
-                                <Link href="/user/login" className='border rounded-xl w-5/12 bg-red-500 text-white font-semibold font-mono'>
-                                    <button className='w-full h-full p-2' onClick={logOut}>
-                                        Log Out
-                                    </button>
-                                </Link>
-                                <button className='border rounded-xl w-5/12 p-2' onClick={() => {
+                                <button className='border rounded-xl w-5/12 bg-green-400 text-white font-semibold p-2' onClick={() => {
                                     SendAPIRequest("aa", "POST", BodyBuilder())
                                 }}>
                                     Update
                                 </button>
+
+                                <Link href="/user/login" className='border rounded-xl w-5/12 border-orange-600 text-orange-600 font-semibold'>
+                                    <button className='w-full h-full p-2' onClick={logOut}>
+                                        Log Out
+                                    </button>
+                                </Link>
+                                
                             </div>
                         </div>
                     </div>

@@ -40,10 +40,10 @@ export async function SendAuthRequest(url : string, data : any, router : any){
     if(response.ok){
         SuccessNotification(responseData.message)
 
-        // const date = new Date()
-        // date.setTime(date.getTime() + (86400000))
-        // const expires = "; expires=" + date.toUTCString()
-        // document.cookie = "auth=" + responseData.token + expires + "; path=/" 
+        const date = new Date()
+        date.setTime(date.getTime() + (86400000))
+        const expires = "; expires=" + date.toUTCString()
+        document.cookie = "auth=" + responseData.token + expires + "; path=/" 
 
         router.push("/home")
     }

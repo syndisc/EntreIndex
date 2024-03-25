@@ -65,7 +65,7 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <button className='h-12 bg-primaryLight mt-3 dark:bg-primaryDark flex content-center justify-center flex-wrap rounded-3xl' onClick={login}>Login</button>
+            <button className='h-12 bg-primaryLight hover:bg-green-400 hover:text-white hover:font-bold mt-3 dark:bg-primaryDark flex content-center justify-center flex-wrap rounded-3xl' onClick={login}>Login</button>
             
             <div className='mt-3'>
               Does not have an account?
