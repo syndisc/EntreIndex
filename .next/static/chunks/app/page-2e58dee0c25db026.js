@@ -1,1 +1,0 @@
-(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[931],{6669:function(n,e,u){Promise.resolve().then(u.bind(u,6911))},6911:function(n,e,u){"use strict";u.r(e),u.d(e,{default:function(){return r}});var t=u(3827);function r(){return(0,t.jsx)("div",{children:"adwa"})}}},function(n){n.O(0,[971,69,744],function(){return n(n.s=6669)}),_N_E=n.O()}]);
