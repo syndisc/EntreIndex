@@ -30,28 +30,30 @@ const FormPage = () => {
                 const userRes = await fetch(userAPI);
                 const user = await userRes.json();
                 setUser(user);
+                
+                const answersAPI = process.env.GET_USER_ANSWER_API ? process.env.GET_USER_ANSWER_API + user.id : ""
+                const answersRes = await fetch(answersAPI)
+                const answers = await answersRes.json()
+
+                const labels = answers.map((answer : Answer) =>{
+                    const date = new Date(answer.createdAt);
+
+                    const day = date.getDate().toString().padStart(2, '0');
+                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    const year = date.getFullYear();
+
+                    const formattedDate = `${day}:${month}:${year}`;
+                    return formattedDate
+                } )
+                const data = answers.map((answer : Answer) => answer.total)
+
+                setChartData({createdAt: labels, total:data})
 
             } else {
                 console.log("Auth cookie not found.");
             }
 
-            const answersAPI = process.env.GET_USER_ANSWER_API ? process.env.GET_USER_ANSWER_API + user.id : ""
-            const answersRes = await fetch(answersAPI)
-            const answers = await answersRes.json()
-
-            const labels = answers.map((answer : Answer) =>{
-                const date = new Date(answer.createdAt);
-
-                const day = date.getDate().toString().padStart(2, '0');
-                const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                const year = date.getFullYear();
-
-                const formattedDate = `${day}:${month}:${year}`;
-                return formattedDate
-            } )
-            const data = answers.map((answer : Answer) => answer.total)
-
-            setChartData({createdAt: labels, total:data})
+            
         }
         LoadUser()
     }, [])

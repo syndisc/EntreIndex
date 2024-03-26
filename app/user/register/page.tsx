@@ -38,9 +38,9 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="w-screen h-screen bg-primaryLight dark:bg-primaryDark p-2 flex justify-center content-center flex-wrap">
+    <div className="w-screen h-screen bg-gradient-to-br from-cyan-600 to-blue-900  p-2 flex justify-center content-center flex-wrap">
       <div className="w-3/5 flex h-2/3">
-        <div className="w-full lg:w-1/2 h-full bg-secondaryLight dark:bg-secondaryDark p-2 rounded-l-3xl rounded-r-3xl lg:rounded-r-none flex justify-center content-center flex-wrap flex-col">
+        <div className="w-full lg:w-1/2 h-full bg-white p-2 rounded-l-3xl rounded-r-3xl lg:rounded-r-none flex justify-center content-center flex-wrap flex-col">
           <div className="text-textLight dark:text-textDark h-auto w-2/3">
             <div className="text-5xl font-bold">Register Page</div>
 
@@ -111,8 +111,8 @@ const RegisterPage = () => {
             </div>
           </div>
         </div>
-        <div className="w-1/2 h-full hidden lg:flex justify-center content-center flex-wrap p-2 bg-accentLight dark:bg-accentDark rounded-r-3xl">
-          <Image height={500} width={500} src="/images/auth.png" alt="Not found" className="h-4/5 w-4/5" />
+        <div className="w-1/2 h-full hidden lg:flex justify-center content-center flex-wrap p-2 bg-cyan-600 rounded-r-3xl">
+          <Image height={1000} width={1000} src="/images/regis.png" alt="Not found" className="h-full w-4/5" />
         </div>
       </div>
     </div>

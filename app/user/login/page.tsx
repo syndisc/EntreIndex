@@ -33,16 +33,16 @@ const LoginPage = () => {
   }
 
   return (
-    <div className='w-screen h-screen bg-primaryLight dark:bg-primaryDark p-2 flex justify-center content-center flex-wrap'>
-      <div className='w-3/5 flex h-2/3'>
-        <div className='w-1/2 h-full hidden lg:flex justify-center content-center flex-wrap p-2 bg-accentLight dark:bg-accentDark rounded-l-3xl'>
-          <Image width={500} height={500} src="/images/auth.png" alt="Not found" className='h-4/5 w-4/5'/>
+    <div className='w-screen h-screen  p-2 flex justify-center content-center flex-wrap bg-gradient-to-br from-cyan-600 to-blue-900'>
+      <div className='w-3/5 flex h-auto shadow-2xl rounded-3xl'>
+        <div className='w-1/2 h-full hidden lg:flex justify-center content-center flex-wrap p-6 bg-cyan-600 rounded-l-3xl '>
+          <Image width={1000} height={1000} src="/images/login.png" alt="Not found" className='h-full w-4/5'/>
         </div>
         <div className='w-full lg:w-1/2 h-full bg-secondaryLight dark:bg-secondaryDark p-2 rounded-l-3xl rounded-r-3xl lg:rounded-l-none flex justify-center content-center flex-wrap flex-col'>
-          <div className='text-6xl font-bold text-textLight dark:text-textDark h-auto w-2/3'>
+          <div className='text-6xl md:text-3xl font-bold text-textLight dark:text-textDark h-auto w-2/3'>
             Login Page
           </div>
-          <div className='flex flex-col h-2/5'>
+          <div className='flex flex-col h-auto'>
 
             <div className='flex flex-col h-auto mt-2 '>
               <label htmlFor="" className='text-sm ps-2'>Email</label>
@@ -65,7 +65,7 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <button className='h-12 bg-primaryLight hover:bg-green-400 hover:text-white hover:font-bold mt-3 dark:bg-primaryDark flex content-center justify-center flex-wrap rounded-3xl' onClick={login}>Login</button>
+            <button className='h-12 bg-primaryLight hover:bg-cyan-600 p-2 hover:text-white border font-bold mt-3 dark:bg-primaryDark flex content-center justify-center flex-wrap rounded-3xl' onClick={login}>Login</button>
             
             <div className='mt-3'>
               Does not have an account?
