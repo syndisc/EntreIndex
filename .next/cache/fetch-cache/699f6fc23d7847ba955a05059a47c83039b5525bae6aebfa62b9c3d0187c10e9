@@ -1,0 +1,1 @@
+{"kind":"FETCH","data":{"headers":{"access-control-allow-origin":"*","connection":"keep-alive","content-length":"25","content-type":"application/json; charset=utf-8","date":"Tue, 26 Mar 2024 07:31:25 GMT","keep-alive":"timeout=72"},"body":"eyJpZCI6NDEsIm5hbWUiOiJNYWxhbmcifQ==","status":200,"url":"http://10.22.65.109:3000/city/41"},"revalidate":31536000,"tags":[]}
