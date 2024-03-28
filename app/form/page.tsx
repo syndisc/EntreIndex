@@ -75,9 +75,11 @@ const FormPage = () => {
 
         let finalAnswer = ""
         let finalProfile = ""
+        let totalAnswer = 0
 
         for(const [key, value] of Object.entries(answer)){
             finalAnswer += value + ","
+            totalAnswer += value
         }
         
         for(const [key, value] of Object.entries(profile)){
@@ -92,7 +94,8 @@ const FormPage = () => {
             user_id : user?.id,
             city_id : chosenCity,
             answer : finalAnswer,
-            profile : finalProfile
+            profile : finalProfile,
+            total : totalAnswer
         }
 
         const api = process.env.POST_ANSWER_API ? process.env.POST_ANSWER_API : ""

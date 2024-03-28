@@ -30,7 +30,10 @@ const config: Config = {
       },
       width:{
         '47.5/100' : "47.5%"
-      }
+      },
+      gridTemplateColumns: {
+        'data': 'repeat(33, minmax(0, 1fr))',
+      },
     },
   },
   plugins: [],
