@@ -7,6 +7,13 @@ import { City, Province } from '../model/province'
 import { ChangeSpace } from '../utility/utility';
 import { SendAPIRequest } from '../utility/apiController'
 import { User } from '../model/user'
+import { Model } from 'survey-core';
+import { Survey } from 'survey-react-ui';
+import { useCallback } from 'react';
+import 'survey-core/defaultV2.min.css';
+
+
+
 
 const FormPage = () => {
 
@@ -14,6 +21,7 @@ const FormPage = () => {
     const [provinces, setProvinces] = useState<[Province]>()
     const [cities, setCities] = useState<[City]>()
     const [chosenCity, setChosenCity] = useState<number>()
+    const [user, setUser] = useState<User>()
     const [profile,setProfile] = useState<FormProfile>({
         sector : 1,
         type  : 1,
@@ -22,16 +30,14 @@ const FormPage = () => {
         experience : 1,
     })
 
-    const [user, setUser] = useState<User>()
-
     useEffect(() => {
         async function LoadUser(){
-        const cookie = document.cookie
-        const [cookieName, cookieValue] = cookie.split("=")
-        const api = process.env.DECODE_TOKEN_API ? process.env.DECODE_TOKEN_API + cookieValue: ""
-        const res = await fetch(api)
-        const user = await res.json()
-        setUser(user)
+            const cookie = document.cookie
+            const [cookieName, cookieValue] = cookie.split("=")
+            const api = process.env.DECODE_TOKEN_API ? process.env.DECODE_TOKEN_API + cookieValue: ""
+            const res = await fetch(api)
+            const user = await res.json()
+            setUser(user)
         }
 
         LoadUser()
@@ -50,18 +56,6 @@ const FormPage = () => {
         loadProvince()
     }, [])
 
-    function handleChanges(questionId : number, value:number){
-        setAnswer({
-            ...answer, [questionId] : value
-        })
-    }
-
-    function handleProfile(field : string, value : number){
-        setProfile({
-            ...profile, [field] : value
-        })
-    }
-
     async function handleNewCity(province : string){
         const api = process.env.GET_TOWN_API ? process.env.GET_TOWN_API : ""
         
@@ -71,199 +65,138 @@ const FormPage = () => {
         })
     }
 
-    function sendForm(){
+    const surveyJson = {
+        pages: [
+            {
+                elements: [
+                    {
+                        name: "province.id",
+                        title: "Provinsi Domisili Usaha",
+                        type: "radiogroup",
+                        choices: provinces ? provinces.map(province => ({
+                            value: province.id,
+                            text: province.name
+                        })) : [],
+                        isRequired: true
+                    }
+                ]
+            },
+            {
+                elements: [
+                    {
+                        name: "city_id",
+                        title: "Kota Domisili Usaha",
+                        type: "radiogroup",
+                        choices: provinces ? provinces.map(province => ({
+                            value: province.id,
+                            text: province.name
+                        })) : [],
+                        isRequired: true
+                    }
+                ]
+            },
+            {
+                elements: [
+                    {
+                        name: "sector",
+                        title: "Sektor Usaha",
+                        type: "radiogroup",
+                        choices: [
+                            { value: 1, text: "Mikro (Aset s/d Rp. 50 jt & omzet penjualan tahunan s/d Rp. 300 jt)" },
+                            { value: 2, text: "Kecil (Aset Rp. 50 jt - Rp. 500 jt & omzet penjualan tahunan s/d Rp. 300 jt - Rp. 2,5 Miliar)" },
+                            { value: 3, text: "Menengah (Aset Rp. 500 jt - Rp. 10 Miliar & omzet penjualan tahunan s/d Rp. 2,5 Miliar - Rp. 50 Miliar)" },
+                            { value: 4, text: "Besar (Aset > Rp. 10 Miliar & omzet penjualan tahunan > Rp. 50 Miliar)" }
+                        ],
+                        isRequired: true
+                    }
+                ]
+            },
+            {
+                elements: [
+                    {
+                        name: "jenis",
+                        title: "Jenis Usaha",
+                        type: "radiogroup",
+                        choices: [
+                            { value: 1, text: "Usaha Pertanian (Agriculture)" },
+                            { value: 2, text: "Usaha Pertambangan (Mining)" },
+                            { value: 3, text: "Usaha Pabrikasi (Manufacturing)" },
+                            { value: 4, text: "Usaha Konstruksi (Construction)" },
+                            { value: 5, text: "Usaha Perdagangan (Trade)" },
+                            { value: 6, text: "Usaha Jasa Keuangan (Financial Service)" },
+                            { value: 7, text: "Usaha Jasa Perorangan (Personal Service)" },
+                            { value: 8, text: "Bidang Jasa-jasa Umum (Public Service)" },
+                            { value: 9, text: "Bidang Jasa Wisata (Tourism)" },
+                            { value: 10, text: "Usaha Mikro" },
+                            { value: 11, text: "Lainnya" }
+                        ],
+                        isRequired: true
+                    }
+                ]
+            },
+            {
+                elements: [
+                    {
+                        name: "status",
+                        title: "Kegiatan Status Usaha",
+                        type: "radiogroup",
+                        choices: [
+                            { value: 1, text: "Sedang memulai usaha" },
+                            { value: 2, text: "Usahanya telah berjalan" },
+                            { value: 3, text: "Usahanya telah berjalan dan sedang merintis hal baru/pengembangan usaha" }
+                        ],
+                        isRequired: true
+                    }
+                ]
+            },
+            {
+                elements: [
+                    {
+                        name: "pendidikan",
+                        title: "Pendidikan Terakhir",
+                        type: "radiogroup",
+                        choices: [
+                            { value: 1, text: "SD" },
+                            { value: 2, text: "SMP" },
+                            { value: 3, text: "SMA" },
+                            { value: 4, text: "SMK" },
+                            { value: 5, text: "S1" },
+                            { value: 6, text: "S2" },
+                            { value: 7, text: "S3" }
+                        ],
+                        isRequired: true
+                    }
+                ]
+            },
+            {
+                elements: [
+                    {
+                        name: "pengalaman",
+                        title: "Pengalaman menjadi wirausahawan/wati",
+                        type: "radiogroup",
+                        choices: [
+                            { value: 1, text: "< 4 Tahun" },
+                            { value: 2, text: "4 - 10 Tahun" },
+                            { value: 3, text: "11 - 15 Tahun" },
+                            { value: 4, text: "> 15 Tahun" }
+                        ],
+                        isRequired: true
+                    }
+                ]
+            }
+        ]
+    };
+    
 
-        let finalAnswer = ""
-        let finalProfile = ""
-
-        for(const [key, value] of Object.entries(answer)){
-            finalAnswer += value + ","
-        }
-        
-        for(const [key, value] of Object.entries(profile)){
-            finalProfile += value + ","
-        }
-        
-        finalAnswer = finalAnswer.slice(0,-1)
-        finalProfile = finalProfile.slice(0,-1)
-
-
-        const body = {
-            user_id : user?.id,
-            city_id : chosenCity,
-            answer : finalAnswer,
-            profile : finalProfile
-        }
-
-        const api = process.env.POST_ANSWER_API ? process.env.POST_ANSWER_API : ""
-
-        SendAPIRequest(api, "POST", body)       
-    }
-
-    return (
-        <div className='h-auto w-screen bg-primaryLight dark:bg-primaryDark'>
-        <Navbar/>
-            <div className='h-93.2vh w-screen flex justify-center content-center flex-wrap'>
-                <div className='h-85vh w-6/12 bg-secondaryLight dark:bg-secondaryDark p-6 overflow-y-auto rounded-3xl'>
-                    {/* Domisili Provinsi dan Kabupaten/Kota*/}
-                    <div className='flex justify-between mb-2'>
-                        <div className='w-5/12 mb-2'>
-                            <div className='text-xl font-bold '>
-                                Provinsi Domisili Usaha
-                            </div>
-                            <div>
-                                <select className='w-full p-2' onChange={(event) => {
-                                    handleNewCity(event.target.value)
-                                }}>
-                                    {provinces?.map((province) => {
-                                        return(
-                                            <option value={province.id} key={province.id}>{ChangeSpace(province.name)}</option>
-                                        )
-                                    })}
-                                </select>
-                            </div>
-                        </div>
-                        <div className='w-5/12 mb-2'>
-                            <div className='text-xl font-bold '>
-                                Provinsi Kabupaten/Kota Usaha
-                            </div>
-                            <div>
-                                <select className='w-full p-2' onChange={(event) => {
-                                    handleChanges(parseInt(event.target.name), parseInt(event.target.value))
-                                }}>
-                                    {cities?.map((city) => {
-                                        return(
-                                            <option value={city.id} key={city.id}>{city.name}</option>
-                                        )
-                                    })}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    {/* Sektor Usaha */}
-                    <div className='w-full mb-2'>
-                        <div className='text-xl font-bold '>
-                            Sektor Usaha
-                        </div>
-                        <div>
-                            <select name="sector" id="" className='w-full p-2' onChange={(event) => {
-                                    handleProfile(event.target.name, parseInt(event.target.value))
-                                }}>
-                                <option value="1">Mikro (Aset s/d Rp. 50 jt & omzet penjualan tahunan s/d Rp. 300 jt)</option>
-                                <option value="2">Kecil (Aset Rp. 50 jt - Rp. 500 jt & omzet penjualan tahunan s/d Rp. 300 jt - Rp. 2,5 Miliar)</option>
-                                <option value="3">Menengah (Aset Rp. 500 jt - Rp. 10 Miliar & omzet penjualan tahunan s/d Rp. 2,5 Miliar - Rp. 50 Miliar)</option>
-                                <option value="4">Besar (Aset &gt; Rp. 10 Miliar & omzet penjualan tahunan &gt; Rp. 50 Miliar)</option>
-                            </select>
-                        </div>
-                    </div>
-                    {/* Jenis Usaha */}
-                    <div className='w-full mb-2'>
-                        <div className='text-xl font-bold '>
-                            Jenis Usaha
-                        </div>
-                        <div>
-                            <select name="type" id="" className='w-full p-2' onChange={(event) => {
-                                    handleProfile(event.target.name, parseInt(event.target.value))
-                                }}>
-                                <option value="1">Usaha Pertanian (Agriculture): pertaniaan, kehutanan, perikanan, perkebunan, dll.</option>
-                                <option value="2">Usaha Pertambangan (Mining): galian pasir, galian tanah, batu, bata, dll.</option>
-                                <option value="3">Usaha Pabrikasi (Manufacturing): industri, assembly, sintesis, dll.</option>
-                                <option value="4">Usaha Kontruksi (Contruction): kontruksi bangunan, jembatan, pengairan, jalan raya, dll.</option>
-                                <option value="5">Usaha Perdagangan (Trade): perdagangan kecil (retailer), grosir, agen, ekspor-impor, dll.</option>
-                                <option value="6">Usaha Jasa Keuangan (Financial Service): perbankkan, asuransi, koperasi, dll.</option>
-                                <option value="7">Usaha Jasa Perorangan (Personal Service): potongan rambut, salon, loundry, catering, dll.</option>
-                                <option value="8">Bidang Jasa-jasa Umum (Public Service): pengangkutan, pergudangan, wartel, distribusi, dll.</option>
-                                <option value="9">Bidang Jasa Wisata (Tourism): biro perjalanan wisata, agen perjalanan wisata, pramuwista, konveksi perjalanan intensive dan pameran, impresariat, konsultan pariwisata, informasi pariwisata, dll.</option>
-                                <option value="10">Usaha mikro (kuliner, fashion, pendidikan, otomotif, agrobisnis, teknologi internet, kerajinan tangan, elektronik/gadget)</option>
-                                <option value="11">Lainnya</option>
-                            </select>
-                        </div>
-                    </div>
-                    {/* Kategori Status Usaha */}
-                    <div className='w-full mb-2'>
-                        <div className='text-xl font-bold '>
-                            Kegiatan Status Usaha
-                        </div>
-                        <div>
-                            <select name="activity" id="" className='w-full p-2' onChange={(event) => {
-                                    handleProfile(event.target.name, parseInt(event.target.value))
-                                }}>
-                                <option value="1">Sedang memulai usaha</option>
-                                <option value="2">Usahanya telah berjalan</option>
-                                <option value="3">Usahanya telah berjalan dan sedang merintis hal baru/pengembangan usaha</option>
-                            </select>
-                        </div>
-                    </div>
-                    {/* Pendidikan Terakhir */}
-                    <div className='w-full mb-2'>
-                        <div className='text-xl font-bold '>
-                            Pendidikan Terakhir
-                        </div>
-                        <div>
-                            <select name="54" id="" className='w-full p-2' onChange={(event) => {
-                                handleChanges(parseInt(event.target.name), parseInt(event.target.value))
-                            }}>
-                                <option value="1">SD</option>
-                                <option value="2">SMP</option>
-                                <option value="3">SMA</option>
-                                <option value="4">SMK</option>
-                                <option value="5">S1</option>
-                                <option value="6">S2</option>
-                                <option value="7">S3</option>
-                            </select>
-                        </div>
-                    </div>
-                    {/* Pengalaman Menjadi wirausahawan/wati */}
-                    <div className='w-full mb-2'>
-                        <div className='text-xl font-bold '>
-                            Pengalaman menjadi wirausahawan/wati 
-                        </div>
-                        <div>
-                            <select name="experience" id="" className='w-full p-2' onChange={(event) => {
-                                    handleProfile(event.target.name, parseInt(event.target.value))
-                                }}>
-                                <option value="1">&lt; 4 Tahun</option>
-                                <option value="2">4 - 10 Tahun</option>
-                                <option value="3">11 - 15 Tahun</option>
-                                <option value="4">&gt; 15 Tahun</option>
-                                
-                            </select>
-                        </div>
-                    </div>
-                    {/* Question */}
-                    {questions.map((question) => {
-                        return(
-                            <div className='w-full mb-2' key={question.id}>
-                                <div className='text-xl font-bold '>
-                                    {question.question}
-                                </div>
-                                <div className='w-full justify-between flex'>
-                                    {options.map((option) => {
-                                        return(
-                                            <label key={option.value}>
-                                                <input type="radio" value={option.value} checked={answer[question.id] === option.value} 
-                                                onChange={() => {
-                                                handleChanges(question.id, option.value)
-                                                }}/>
-
-                                                <span className='pl-4'>
-                                                {option.text}
-                                                </span>
-                                            </label>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                        )
-                    })}
-                    <div>
-                        <button className='border w-full rounded-3xl' onClick={sendForm}>Selesai</button>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    )
+    const survey = new Model(surveyJson);
+    const alertResults = useCallback((sender: any) => {
+        const results = JSON.stringify(sender.data);
+        alert(results);
+    }, []);
+    
+    survey.onComplete.add(alertResults);
+    
+    return <Survey model={survey} />;
 }
 
 export default FormPage
