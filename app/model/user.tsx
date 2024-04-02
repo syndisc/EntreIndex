@@ -19,3 +19,14 @@ export interface User{
     first_name : string,
     last_name : string
 }
+
+export interface UserProfile{
+    id : string,
+    company : string,
+    email : string,
+    first_name : string,
+    last_name : string,
+    password : string,
+    gender : string,
+    phone_number : string
+}

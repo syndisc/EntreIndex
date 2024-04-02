@@ -1,9 +1,12 @@
-import Image from "next/image";
+'use client'
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  return (
-    <main>
-      <h1>Hello World</h1>
-    </main>
-  );
+  // const router = useRouter();
+  // router.push('/user/login');
+  return(
+    <div>
+      adwa
+    </div>
+  )
 }

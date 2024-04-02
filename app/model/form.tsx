@@ -7,7 +7,9 @@ export interface Answer{
     user_id : number,
     city_id : number,
     answer : string,
-    profile : string
+    profile : string,
+    createdAt : string,
+    total : number
 }
 
 export interface FormProfile{

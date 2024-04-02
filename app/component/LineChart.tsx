@@ -1,44 +1,37 @@
 "use client"
-import React from "react";
+import React, { use } from "react";
 import Chart, { ChartConfiguration } from "chart.js";
 
-export default function CardLineChart() {
+interface CardLineChartProps{
+  label : string[];
+  total : number[];
+  user_name : string
+}
+
+const CardLineChart : React.FC<CardLineChartProps> = ({ label, total, user_name}) =>{
+  
   React.useEffect(() => {
     var config : ChartConfiguration = {
       type: "line",
       data: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "august", 
-          "september",
-          "october",
-          "november",
-          "december"
-        
-        ],
+        labels: label,
         datasets: [
           {
             label: "Entrepreneurship Index",
             backgroundColor: "#3182ce",
             borderColor: "#3183ce",
-            data: [65, 78, 66, 44, 56, 67, 11, 23, 14, 64, 89, 23],
+            data: total,
             fill: false,
           }
         ],
       },
       options: {
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
         responsive: true,
         title: {
           display: true,
           text: "Entrepreneurship Index",
-          fontColor: "white",
+          fontColor: "black",
         },
         legend: {
           labels: {
@@ -70,11 +63,11 @@ export default function CardLineChart() {
               gridLines: {
                 display: false,
                 borderDash: [2],
-                borderDashOffset: [2],
+                borderDashOffset: 2,
                 color: "rgba(33, 37, 41, 0.3)",
                 zeroLineColor: "rgba(0, 0, 0, 0)",
                 zeroLineBorderDash: [2],
-                zeroLineBorderDashOffset: [2],
+                zeroLineBorderDashOffset: 2,
               },
             },
           ],
@@ -85,18 +78,18 @@ export default function CardLineChart() {
               },
               display: true,
               scaleLabel: {
-                display: false,
+                display: true,
                 labelString: "Value",
                 fontColor: "white",
               },
               gridLines: {
                 borderDash: [3],
-                borderDashOffset: [3],
-                drawBorder: false,
+                borderDashOffset: 3,
+                drawBorder: true,
                 color: "rgba(255, 255, 255, 0.15)",
                 zeroLineColor: "rgba(33, 37, 41, 0)",
                 zeroLineBorderDash: [2],
-                zeroLineBorderDashOffset: [2],
+                zeroLineBorderDashOffset: 2,
               },
             },
           ],
@@ -107,30 +100,18 @@ export default function CardLineChart() {
     if (ctx) {
       new Chart(ctx, config);
     } else {
-      console.error("Canvas element not found");
     }
     
-  }, []);
+  }, [label]);
   return (
-    <>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-700">
-        <div className="rounded-t mb-0 px-4 py-3 bg-transparent">
-          <div className="flex flex-wrap items-center">
-            <div className="relative w-full max-w-full flex-grow flex-1">
-              <h6 className="uppercase text-blueGray-100 mb-1 text-xs font-semibold">
-                Overview
-              </h6>
-              <h2 className="text-white text-xl font-semibold">Sales value</h2>
-            </div>
-          </div>
-        </div>
-        <div className="p-4 flex-auto">
-          {/* Chart */}
-          <div className="relative h-350-px">
+        <div className="p-4 flex-auto shadow-2xl">
+          <div className="relative h-350-px ">
             <canvas id="line-chart"></canvas>
           </div>
         </div>
       </div>
-    </>
   );
 }
+
+export default CardLineChart
