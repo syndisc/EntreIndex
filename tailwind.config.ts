@@ -22,6 +22,10 @@ const config: Config = {
         accentDark: "#5885AF",
         textLight: "#000000",
         textDark: "#C3E0E5",
+        blueFirst: "#F7FBFC",
+        blueSecond: "#D6E6F2",
+        blueThird: "#B9D7EA",
+        blueFourth: "#769FCD",
       },
       height:{
         '80vh' : "80vh",
@@ -32,7 +36,7 @@ const config: Config = {
         '47.5/100' : "47.5%"
       },
       gridTemplateColumns: {
-        'data': 'repeat(33, minmax(0, 1fr))',
+        'data': 'repeat(30, minmax(0, 1fr))',
       },
     },
   },

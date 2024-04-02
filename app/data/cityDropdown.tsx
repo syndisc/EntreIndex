@@ -33,16 +33,18 @@ const CityDropdown: React.FC<Dropdown> = async({ city_id, limit}) => {
 
                     if (answer.total < q1) {
                         colorStyle.backgroundColor = 'red';
+                        colorStyle.color = 'white'
                     } else if (answer.total >= q1 && answer.total < q2) {
                         colorStyle.backgroundColor = 'orange';
                     } else if (answer.total >= q2 && answer.total < q3) {
                         colorStyle.backgroundColor = 'yellow';
                     } else {
                         colorStyle.backgroundColor = 'green';
+                        colorStyle.color = 'white'
                     }
 
                     return(
-                        <div className='p-2 text-black flex justify-center content-center flex-nowrap rounded-full' style={colorStyle}  key={answer.id}>
+                        <div className='p-3 border-2 text-black flex justify-center content-center flex-nowrap rounded-full' style={colorStyle}  key={answer.id}>
                             {answer.total}
                         </div>
                     )

@@ -11,7 +11,9 @@ const nextConfig = {
         GET_USER_ANSWER_API : process.env.GET_USER_ANSWER_API,
         GET_CITY_API : process.env.GET_CITY_API,
         GET_MIN_MAX_TOTAL_API : process.env.GET_MIN_MAX_TOTAL_API,
-        GET_ANSWER_BY_CITY_API : process.env.GET_ANSWER_BY_CITY_API
+        GET_ANSWER_BY_CITY_API : process.env.GET_ANSWER_BY_CITY_API,
+        GET_HIGHEST_AVG_PROVICE : process.env.GET_HIGHEST_AVG_PROVICE,
+        GET_HIGHEST_AVG_CITY : process.env.GET_HIGHEST_AVG_CITY,
     }
 };
 

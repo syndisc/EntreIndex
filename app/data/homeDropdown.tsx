@@ -22,7 +22,7 @@ const HomeDropdown = async() => {
         <div>
             {provinces.map((province : Province) => {
                 return(
-                    <div key={province.id} className='mb-2 border p-6 rounded-3xl bg-accentLight'>
+                    <div key={province.id} className='mb-2 border p-6 rounded-3xl bg-blueSecond'>
                         <div className="text-2xl font-semibold" >
                             {ChangeSpace(province.name)}
                         </div>

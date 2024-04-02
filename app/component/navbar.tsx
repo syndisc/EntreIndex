@@ -28,7 +28,7 @@ const Navbar = () => {
   }, [])
 
   return (
-    <div className='w-screen h-auto flex justify-between bg-cyan-600 sticky top-0 shadow-2xl'>
+    <div className='w-screen h-auto flex justify-between bg-blueSecond px-6 sticky top-0 shadow-2xl'>
         <Link href={"/home"} className='flex '>
             <Image width={100} height={100} src="/images/logo2.png" alt="Asset not found" className='w-24 h-20'/>
             <div className='flex flex-col content-center justify-center flex-wrap  text-textLight dark:text-textDark'>

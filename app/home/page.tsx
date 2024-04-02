@@ -1,20 +1,31 @@
 import React from 'react'
 import Navbar from '../component/navbar'
-import CardLineChart from '../component/LineChart'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { AverageCity, AverageProvince } from '../model/province'
+import { ChangeSpace } from '../utility/utility'
 
-const page = () => {
+const page = async() => {
+
+  const provinceHighestAPI = process.env.GET_HIGHEST_AVG_PROVICE || ""
+  const cityHighestAPI = process.env.GET_HIGHEST_AVG_CITY || ""
+
+  const provincesRes = await fetch(provinceHighestAPI)
+  const provinces : [AverageProvince] =  await provincesRes.json()
+
+  const citiesRes = await fetch(cityHighestAPI)
+  const cities : [AverageCity] = await citiesRes.json()
   
   return (
-    <div className='h-auto w-screen bg-gradient-to-br from-cyan-200 to-blue-900'>
+    <div className='h-auto w-screen bg-gradient-to-br from-blueThird to-blueFourth'>
       <Navbar/>
       <div className='h-93.2vh w-screen flex justify-center content-center flex-wrap'>
         <div className='h-85vh w-11/12 bg-secondaryLight dark:bg-secondaryDark p-6 rounded-3xl shadow-2xl'>
           <div className='h-full y-full'>
             {/* top part */}
             <div className=' h-1/2 p-2  w-full '>
-              <div className='bg-cyan-600 rounded-3xl flex w-full h-full p-6 shadow-2xl'>
+              <div className='bg-blueSecond rounded-3xl flex w-full h-full p-6 shadow-2xl'>
                 {/* top left */}
                 <div className='w-2/3'>
                   <div className='text-5xl font-bold'>
@@ -37,11 +48,33 @@ const page = () => {
             </div>
             {/* bot part */}
             <div className=' flex w-full h-1/2 p-2 justify-between'>
-              <div className='w-47.5/100 bg-green-500 p-6 rounded-3xl shadow-2xl'>
-                BOT LEFT
+              <div className='w-47.5/100 bg-blueSecond p-6 rounded-3xl shadow-2xl'>
+                {provinces.map((province) => {
+                  return(
+                    <div className='flex justify-between h-1/6 p-3 m-2 rounded-3xl bg-gray-200 items-center flex-wrap '>
+                        <div>
+                        {ChangeSpace(province.name)}
+                        </div>
+                        <div>
+                        {province.avg}
+                        </div>
+                    </div>
+                  )
+                })}
               </div>
-              <div className='w-47.5/100 bg-blue-600 p-6 rounded-3xl shadow-2xl'>
-                BOT RIGHT
+              <div className='w-47.5/100 bg-blueSecond p-6 rounded-3xl shadow-2xl'>
+              {cities.map((city) => {
+                  return(
+                    <div className='flex justify-between h-1/6 p-3 m-2 rounded-3xl bg-gray-200 items-center flex-wrap '>
+                        <div>
+                        {ChangeSpace(city.city_name)}
+                        </div>
+                        <div>
+                        {city.avg}
+                        </div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>

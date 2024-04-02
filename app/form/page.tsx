@@ -1,16 +1,11 @@
 "use client"
-import React, { useEffect, useState } from 'react'
-import Navbar from '../component/navbar'
-import { FormAnswer, FormProfile } from '../model/form'
-import { options, questions } from '../utility/data'
-import { City, Province } from '../model/province'
-import { ChangeSpace } from '../utility/utility';
-import { SendAPIRequest } from '../utility/apiController'
-import { User } from '../model/user'
+import React, { useCallback, useEffect, useState } from 'react'
+
 import { Model } from 'survey-core';
 import { Survey } from 'survey-react-ui';
 import 'survey-core/defaultV2.min.css';
-import { surveyJson2, surveyJson } from './survey'
+import { surveyJson2} from './survey'
+import Navbar from '../component/navbar';
 
 const FormPage = () => {
 
@@ -22,7 +17,13 @@ const FormPage = () => {
     
     survey.onComplete.add(alertResults);
     
-    return <Survey model={survey} />;
+    return (
+        <div>
+            <Navbar/>
+            <Survey model={survey} />
+        </div>
+    )
+    
 }
 
 export default FormPage

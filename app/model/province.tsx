@@ -9,3 +9,13 @@ export interface City{
     province_id : number,
     name : string
 }
+
+export interface AverageProvince{
+    avg: "",
+    name: ""        
+}
+
+export interface AverageCity{
+    avg: "",
+    city_name: ""
+}
