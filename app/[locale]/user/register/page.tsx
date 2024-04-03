@@ -7,8 +7,12 @@ import Image from 'next/image';
 import { SendAuthRequest } from '../../utility/apiController';
 import { gender } from '../../utility/data';
 import { RegisterDropdown } from '../../component/form/registerForm';
+import { useTranslations } from 'next-intl';
+import ChangeLanguage from '../../component/switchLanguage';
 
 const RegisterPage = () => {
+
+  const t = useTranslations('Index')
 
   const [registerData, setRegisterData] = useState<Register>({
     first_name : "",
@@ -41,18 +45,18 @@ const RegisterPage = () => {
       <div className="w-3/5 flex h-2/3">
         <div className="w-full lg:w-1/2 h-full bg-white p-2 rounded-l-3xl rounded-r-3xl lg:rounded-r-none flex justify-center content-center flex-wrap flex-col">
           <div className="text-textLight dark:text-textDark h-auto w-2/3">
-            <div className="text-5xl font-bold">Register Page</div>
+            <div className="text-5xl font-bold">{t('register_page')}</div>
 
             {/* Name */}
             <div className='flex mt-2 justify-between'>
               <div className="flex flex-col w-47.5/100">
-                <label htmlFor="">{"First Name"}</label>
+                <label htmlFor="">{t('first_name')}</label>
                 <input type="text" onChange={(e) => {
                   handleFieldChange("first_name", e.target.value)
                 }} className="border rounded-3xl py-1 px-2 dark:text-textLight"/>
               </div>
               <div className="flex flex-col w-47.5/100">
-                <label htmlFor="">{"Last Name"}</label>
+                <label htmlFor="">{t('last_name')}</label>
                 <input type="text" onChange={(e) => {
                   handleFieldChange("last_name", e.target.value)
                 }} className="border rounded-3xl py-1 px-2 dark:text-textLight"/>
@@ -61,7 +65,7 @@ const RegisterPage = () => {
 
             {/* Phone number */}
             <div className="flex flex-col w-full">
-              <label htmlFor="">{"Phone Number"}</label>
+              <label htmlFor="">{t('phone_number')}</label>
               <input type="text" onChange={(e) => {
                 handleFieldChange("phone_number", e.target.value)
               }} className="border rounded-3xl py-1 px-2 dark:text-textLight"/>
@@ -71,7 +75,7 @@ const RegisterPage = () => {
 
             {/* Company */}
             <div className="flex flex-col w-full">
-              <label htmlFor="">{"Company"}</label>
+              <label htmlFor="">{t('company')}</label>
               <input type="text" onChange={(e) => {
                 handleFieldChange("company", e.target.value)
               }} className="border rounded-3xl py-1 px-2 dark:text-textLight"/>
@@ -87,7 +91,7 @@ const RegisterPage = () => {
 
             {/* Password */}
             <div className="flex flex-col w-full">
-              <label htmlFor="">{"Password"}</label>
+              <label htmlFor="">{t('password')}</label>
               <input type="password" onChange={(e) => {
                 handleFieldChange("password", e.target.value)
               }} className="border rounded-3xl py-1 px-2 dark:text-textLight"/>
@@ -95,18 +99,18 @@ const RegisterPage = () => {
 
             {/* DoB */}
             <div className="flex flex-col w-full">
-              <label htmlFor="">{"Date of Birth"}</label>
+              <label htmlFor="">{t('date_of_birth')}</label>
               <input type="date" onChange={(e) => {
                 handleFieldChange("dob", e.target.value)
               }} className="border rounded-3xl py-1 px-2 w-full dark:text-textLight"/>
             </div>
 
             <label htmlFor="" className="flex mt-2">
-              <div>Already have an account?</div>
-              <Link href={"login"} className='pl-2 text-blue-400 font-bold'>Login</Link>
+              <div>{t('auth_question_register')}</div>
+              <Link href={"login"} className='pl-2 text-blue-400 font-bold'>{t('click_here')}</Link>
             </label>
             <div className='w-full mt-2'>
-              <button className='w-full border rounded-3xl p-2  bg-blueThird hover:bg-blueSecond' onClick={handleRegister}>Register</button>
+              <button className='w-full border rounded-3xl p-2  bg-blueThird hover:bg-blueSecond' onClick={handleRegister}>{t('register')}</button>
             </div>
           </div>
         </div>

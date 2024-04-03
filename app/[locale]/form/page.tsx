@@ -78,9 +78,7 @@ const FormPage = () => {
                 const user = await userRes.json();
                 setUser(user);
 
-            } else {
-                console.log("Auth cookie not found.");
-            }
+            } 
         }
         LoadData()
     }, [])

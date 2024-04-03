@@ -1,5 +1,18 @@
 {
   "Index": {
-    "title": "Hello DUnia!"
+    "login": "Masuk",
+    "auth_question_login" : "Tidak memiliki akun?",
+    "click_here" : "Klik disini",
+    "login_page" : "Halaman Masuk",
+    "password" : "Kata sandi",
+    "register" : "Daftar",
+    "register_page" : "Halaman Daftar",
+    "first_name" : "Nama Pertama",
+    "last_name" : "Nama Terakhir",
+    "phone_number" : "Nomor Telepon",
+    "gender" : "Kelamin",
+    "company" : "Perusahaan",
+    "date_of_birth" : "Tanggal Lahir",
+    "auth_question_register" : "Sudah memiliki akun?"
   }
 }
