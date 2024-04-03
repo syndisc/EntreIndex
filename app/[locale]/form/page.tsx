@@ -29,31 +29,12 @@ const FormPage = () => {
         number : 1,
         name : "Next"
     })
+
     const [user, setUser] = useState<User>()
 
     const router = useRouter()
 
     const survey = new Model(surveyJson2);
-    const alertResults = useCallback((sender: any) => {
-        const partA = (({ sector, jenis, status, pendidikan, pengalaman }) => ({ sector, jenis, status, pendidikan, pengalaman }))(sender.data);
-        const partB = (({ sector, jenis, status, pendidikan, pengalaman, ...rest }) => rest)(sender.data);
-
-        const profile = Object.values(partA).join(', ')
-        const answer = Object.values(partA).join(', ')
-        const total = Object.values(partB).reduce((acc: any, curr: any) => acc + curr, 0)
-
-        const data = {
-            user_id : parseInt(user?.id ?? '0'),
-            city_id : parseInt(chosenCities.toString()),
-            answer : answer,
-            profile : profile,
-            total : total
-        }
-
-        const answerAPI = process.env.SUBMIT_FORM_API || ""
-        SendAPIRequest(answerAPI, "POST", data)
-        router.push("/form")
-    }, []);
 
     useEffect(() => {
         async function LoadData(){
@@ -77,11 +58,32 @@ const FormPage = () => {
                 const userRes = await fetch(userAPI);
                 const user = await userRes.json();
                 setUser(user);
-
-            } 
+            
+            }
         }
         LoadData()
     }, [])
+
+    const alertResults = ((sender: any) => {
+        const partA = (({ sector, jenis, status, pendidikan, pengalaman }) => ({ sector, jenis, status, pendidikan, pengalaman }))(sender.data);
+        const partB = (({ sector, jenis, status, pendidikan, pengalaman, ...rest }) => rest)(sender.data);
+
+        const profile = Object.values(partA).join(', ')
+        const answer = Object.values(partA).join(', ')
+        const total = Object.values(partB).reduce((acc: any, curr: any) => acc + curr, 0)
+                
+        const data = {
+            user_id : user?.id,
+            city_id : parseInt(chosenCities.toString()),
+            answer : answer,
+            profile : profile,
+            total : total
+        }
+
+        const answerAPI = process.env.SUBMIT_FORM_API || ""
+        SendAPIRequest(answerAPI, "POST", data)
+        router.push("/en/answer")
+    });
     
     survey.onComplete.add(alertResults);
 

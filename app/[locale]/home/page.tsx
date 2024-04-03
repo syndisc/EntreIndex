@@ -35,7 +35,7 @@ const page = async() => {
                   Join us on an exhilarating adventure! Your insights matter in shaping the future of entrepreneurship. By participating in our comprehensive questionnaire on entrepreneurship, you are not just contributing your thoughts but also igniting the flame of innovation and creativity. Lets pave the way for a brighter future, where every aspiring entrepreneur can thrive. Together, lets make entrepreneurship an irresistible journey towards success and impact!
                   </div>
                   <Link href="/en/form">
-                      <button className='p-2 bg-white text-cyan-600 font-bold rounded-3xl hover:bg-yellow-500 hover:text-white'>
+                      <button className='p-2 font-bold rounded-3xl bg-blueFourth hover:bg-blueThird border'>
                           Fill a questionnaire
                       </button>
                   </Link>
@@ -51,7 +51,7 @@ const page = async() => {
               <div className='w-47.5/100 bg-blueSecond p-6 rounded-3xl shadow-2xl'>
                 {provinces.map((province) => {
                   return(
-                    <div key={province.name} className='flex justify-between h-1/6 p-3 m-2 rounded-3xl bg-gray-200 items-center flex-wrap '>
+                    <div key={province.name} className='flex justify-between h-1/6 p-3 m-2 rounded-3xl bg-secondaryLight shadow-2xl items-center flex-wrap '>
                         <div>
                         {ChangeSpace(province.name)}
                         </div>
@@ -65,7 +65,7 @@ const page = async() => {
               <div className='w-47.5/100 bg-blueSecond p-6 rounded-3xl shadow-2xl'>
               {cities.map((city) => {
                   return(
-                    <div key={city.city_name} className='flex justify-between h-1/6 p-3 m-2 rounded-3xl bg-gray-200 items-center flex-wrap '>
+                    <div key={city.city_name} className='flex justify-between h-1/6 p-3 m-2 rounded-3xl bg-secondaryLight shadow-2xl items-center flex-wrap '>
                         <div>
                         {ChangeSpace(city.city_name)}
                         </div>

@@ -15,7 +15,7 @@ export interface Register{
 }
 
 export interface User{
-    id : string,
+    id : Number,
     first_name : string,
     last_name : string
 }

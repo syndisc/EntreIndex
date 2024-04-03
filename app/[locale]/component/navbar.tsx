@@ -9,7 +9,9 @@ const Navbar = () => {
   const [user, setUser] = useState<User>()
 
   useEffect(() => {
+    
     async function LoadUser(){
+      
       const authCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('auth='));
 
       if (authCookie) {
@@ -18,10 +20,9 @@ const Navbar = () => {
           const userRes = await fetch(userAPI);
           const user = await userRes.json();
           setUser(user);
+      }
     }
-
     LoadUser()
-  }
   }, [])
 
   return (

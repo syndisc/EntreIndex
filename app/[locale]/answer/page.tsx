@@ -15,7 +15,7 @@ const FormPage = () => {
     const [chartData, setChartData] = useState<AnswerChart>()
 
     const [user, setUser] = useState<User>({
-        id : "",
+        id : 0,
         first_name :"",
         last_name : ""
     })
