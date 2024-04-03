@@ -51,3 +51,22 @@ export async function SendAuthRequest(url : string, data : any, router : any){
         FailedNotification(responseData.message[0]);
     }
 }
+
+export async function SendRegisterRequest(url : string, data : any, router : any){
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    });
+    const responseData = await response.json()
+
+    if(response.ok){
+        SuccessNotification(responseData.message)
+        router.push("/en/user/login")
+    }
+    else{
+        FailedNotification(responseData.message[0]);
+    }
+}

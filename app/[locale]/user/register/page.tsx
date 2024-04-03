@@ -4,11 +4,10 @@ import Link from "next/link";
 import { Register } from '@/app/[locale]/model/user';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { SendAuthRequest } from '../../utility/apiController';
+import { SendRegisterRequest } from '../../utility/apiController';
 import { gender } from '../../utility/data';
 import { RegisterDropdown } from '../../component/form/registerForm';
 import { useTranslations } from 'next-intl';
-import ChangeLanguage from '../../component/switchLanguage';
 
 const RegisterPage = () => {
 
@@ -37,7 +36,7 @@ const RegisterPage = () => {
 
   const handleRegister = () => { 
     const api = process.env.REGISTER_API ? process.env.REGISTER_API : ""
-    SendAuthRequest(api, registerData, router)
+    SendRegisterRequest(api, registerData, router)
   };
 
   return (
