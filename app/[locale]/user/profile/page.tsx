@@ -139,7 +139,7 @@ const UserProfilePage = () => {
                                     Update
                                 </button>
 
-                                <Link href="/user/login" className='border rounded-xl w-5/12 border-orange-600 text-orange-600 font-semibold'>
+                                <Link href="en/user/login" className='border rounded-xl w-5/12 border-orange-600 text-orange-600 font-semibold'>
                                     <button className='w-full h-full p-2' onClick={logOut}>
                                         Log Out
                                     </button>

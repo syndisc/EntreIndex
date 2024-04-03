@@ -29,7 +29,7 @@ const Navbar = () => {
 
   return (
     <div className='w-screen h-auto flex justify-between bg-blueSecond4 px-6 sticky top-0 shadow-2xl'>
-        <Link href={"/home"} className='flex '>
+        <Link href={"en/home"} className='flex '>
             <Image width={100} height={100} src="/images/logo2.png" alt="Asset not found" className='w-24 h-20'/>
             <div className='flex flex-col content-center justify-center flex-wrap  text-textLight dark:text-textDark'>
               <div className='font-bold text-3xl'>
@@ -41,9 +41,9 @@ const Navbar = () => {
             </div>
         </Link>
         <div className='w-auto gap-6 flex justify-around content-center flex-wrap font-bold text-lg text-textLight dark:text-textDark pr-4'>
-            <Link href={"/answer"}>My Answer</Link>
-            <Link href={"/data"}>Data</Link>
-            <Link href={"user/profile"}>Profile</Link>
+            <Link href={"/en/answer"}>My Answer</Link>
+            <Link href={"/en/data"}>Data</Link>
+            <Link href={"/en/user/profile"}>Profile</Link>
         </div>
     </div>
   )

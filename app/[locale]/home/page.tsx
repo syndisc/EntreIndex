@@ -34,7 +34,7 @@ const page = async() => {
                   <div className='text-lg font-semibold text-justify'>
                   Join us on an exhilarating adventure! Your insights matter in shaping the future of entrepreneurship. By participating in our comprehensive questionnaire on entrepreneurship, you are not just contributing your thoughts but also igniting the flame of innovation and creativity. Lets pave the way for a brighter future, where every aspiring entrepreneur can thrive. Together, lets make entrepreneurship an irresistible journey towards success and impact!
                   </div>
-                  <Link href="/form">
+                  <Link href="/en/form">
                       <button className='p-2 bg-white text-cyan-600 font-bold rounded-3xl hover:bg-yellow-500 hover:text-white'>
                           Fill a questionnaire
                       </button>
