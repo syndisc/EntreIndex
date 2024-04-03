@@ -18,18 +18,15 @@ const Navbar = () => {
           const userRes = await fetch(userAPI);
           const user = await userRes.json();
           setUser(user);
-
-      } else {
-          console.log("Auth cookie not found.");
-      }
     }
 
     LoadUser()
+  }
   }, [])
 
   return (
     <div className='w-screen h-auto flex justify-between bg-blueSecond4 px-6 sticky top-0 shadow-2xl'>
-        <Link href={"en/home"} className='flex '>
+        <Link href={"/en/home"} className='flex '>
             <Image width={100} height={100} src="/images/logo2.png" alt="Asset not found" className='w-24 h-20'/>
             <div className='flex flex-col content-center justify-center flex-wrap  text-textLight dark:text-textDark'>
               <div className='font-bold text-3xl'>

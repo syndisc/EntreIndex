@@ -1,5 +1,18 @@
 {
   "Index": {
-    "title": "Hello world!"
+    "login": "Login",
+    "auth_question_login" : "Does not have an account?",
+    "click_here" : "Click here",
+    "login_page" : "Login Page",
+    "password" : "Password",
+    "register" : "Register",
+    "register_page" : "Register Page",
+    "first_name" : "First Name",
+    "last_name" : "Last Name",
+    "phone_number" : "Phone Number",
+    "gender" : "Gender",
+    "company" : "Company",
+    "date_of_birth" : "Date of Birth",
+    "auth_question_register" : "Already have an account?"
   }
 }

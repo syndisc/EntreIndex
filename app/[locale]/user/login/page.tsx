@@ -41,7 +41,7 @@ const LoginPage = () => {
         </div>
         <div className='w-full lg:w-1/2 h-full bg-secondaryLight p-2 rounded-l-3xl rounded-r-3xl lg:rounded-l-none flex justify-center content-center flex-wrap flex-col'>
           <div className='text-6xl md:text-3xl font-bold text-textLight h-auto w-2/3'>
-            Login Page
+            {t('login_page')}
           </div>
           <div className='flex flex-col h-auto'>
 
@@ -53,7 +53,7 @@ const LoginPage = () => {
             </div>
 
             <div className='flex flex-col h-auto mt-2'>
-              <label htmlFor="" className='text-sm ps-2'>Password</label>
+              <label htmlFor="" className='text-sm ps-2'>{t('password')}</label>
               <div className='h-12'>
                 <input type={fieldType} className='w-11/12 h-full rounded-l-3xl p-2 border dark:text-black' name='password' onChange={(e) => {
                   handleChanges(e)
@@ -67,12 +67,12 @@ const LoginPage = () => {
             </div>
 
             <button className='h-12 bg-blueThird hover:bg-blueSecond p-2border font-bold mt-3 dark:bg-primaryDark 
-            flex content-center justify-center flex-wrap rounded-3xl' onClick={login}>Login</button>
+            flex content-center justify-center flex-wrap rounded-3xl' onClick={login}>{t('login')}</button>
             
             <div className='mt-3'>
-              Does not have an account?
+              {t('auth_question_login')}
               <Link href={"register"} className='pl-2 text-blueThird font-bold'>  
-                Click here!
+                {t('click_here')}
               </Link>
             </div>
           </div>

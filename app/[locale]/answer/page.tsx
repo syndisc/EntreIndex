@@ -47,13 +47,8 @@ const FormPage = () => {
                 } )
                 const data = answers.map((answer : Answer) => answer.total)
 
-                setChartData({createdAt: labels, total:data})
-
-            } else {
-                console.log("Auth cookie not found.");
+                setChartData({createdAt: labels, total:data})       
             }
-
-            
         }
         LoadUser()
     }, [])

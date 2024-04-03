@@ -5,7 +5,8 @@ import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
 
-import { NextIntlClientProvider } from "next-intl";
+import { NextIntlClientProvider, useMessages } from "next-intl";
+import ChangeLanguage from "./component/switchLanguage";
 
 const font = Poppins({ subsets: ["latin"], weight:"400" });
 
@@ -21,13 +22,17 @@ export default function RootLayout({
   children: React.ReactNode;
   params : {locale : string}
 }>) {
+
+  const msg = useMessages()
+
   return (
     
-    <NextIntlClientProvider locale={locale}>
+    <NextIntlClientProvider locale={locale} messages={msg}>
       <html lang={locale} className="overflow-x-hidden">
         <body className={font.className}>
           {children}
           <ToastContainer/>
+          <ChangeLanguage/>
         </body>
       </html>
     </NextIntlClientProvider>
