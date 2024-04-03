@@ -27,7 +27,7 @@ export default function ConfirmUser() {
       if (response.ok) {
         console.log('User confirmed successfully!');
         
-        router.push('/login'); // Change to your login page URL
+        router.push('/en/user/login'); // Change to your login page URL
       } else {
         console.error('Failed to confirm user');
         // Handle failure response as needed
