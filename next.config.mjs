@@ -18,6 +18,7 @@ const nextConfig = {
         GET_ANSWER_BY_CITY_API : process.env.GET_ANSWER_BY_CITY_API,
         GET_HIGHEST_AVG_PROVICE : process.env.GET_HIGHEST_AVG_PROVICE,
         GET_HIGHEST_AVG_CITY : process.env.GET_HIGHEST_AVG_CITY,
+        UPDATE_USER_ID : process.env.UPDATE_USER_ID,
     }
 };
 
