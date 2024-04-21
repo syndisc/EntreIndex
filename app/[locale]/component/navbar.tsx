@@ -41,6 +41,7 @@ const Navbar = () => {
         <div className='w-auto gap-6 flex justify-around content-center flex-wrap font-bold text-lg text-textLight dark:text-textDark pr-4'>
             <Link href={"/en/answer"}>My Answer</Link>
             <Link href={"/en/data"}>Data</Link>
+            {/* <Link href={"/en/data"}>Data</Link> */}
             <Link href={"/en/user/profile"}>Profile</Link>
         </div>
     </div>

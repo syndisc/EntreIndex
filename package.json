@@ -16,7 +16,9 @@
     "react-dom": "^18",
     "react-hook-form": "^7.51.2",
     "react-toastify": "^10.0.4",
-    "survey-react-ui": "^1.9.136"
+    "read-excel-file": "^5.7.1",
+    "survey-react-ui": "^1.9.136",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/chart.js": "^2.9.41",

@@ -4,7 +4,7 @@ import Navbar from '../component/navbar'
 import Image from 'next/image'
 import Link from 'next/link'
 import { AverageCity, AverageProvince } from '../model/province'
-import { ChangeSpace } from '../utility/utility'
+import { ChangeSpace, ChangeToIndex } from '../utility/utility';
 
 const page = async() => {
 
@@ -49,6 +49,9 @@ const page = async() => {
             {/* bot part */}
             <div className=' flex w-full h-1/2 p-2 justify-between'>
               <div className='w-47.5/100 bg-blueSecond p-6 rounded-3xl shadow-2xl'>
+                <div className='font-bold'>
+                Top 5 Provinces
+                </div>
                 {provinces.map((province) => {
                   return(
                     <div key={province.name} className='flex justify-between h-1/6 p-3 m-2 rounded-3xl bg-secondaryLight shadow-2xl items-center flex-wrap '>
@@ -56,13 +59,16 @@ const page = async() => {
                         {ChangeSpace(province.name)}
                         </div>
                         <div>
-                        {province.avg}
+                        {ChangeToIndex(parseInt(province.avg))}
                         </div>
                     </div>
                   )
                 })}
               </div>
               <div className='w-47.5/100 bg-blueSecond p-6 rounded-3xl shadow-2xl'>
+              <div className='font-bold'>
+                Top 5 Cities
+              </div>
               {cities.map((city) => {
                   return(
                     <div key={city.city_name} className='flex justify-between h-1/6 p-3 m-2 rounded-3xl bg-secondaryLight shadow-2xl items-center flex-wrap '>
@@ -70,7 +76,7 @@ const page = async() => {
                         {ChangeSpace(city.city_name)}
                         </div>
                         <div>
-                        {city.avg}
+                        {ChangeToIndex(parseInt(city.avg))}
                         </div>
                     </div>
                   )

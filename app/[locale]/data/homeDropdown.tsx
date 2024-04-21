@@ -7,7 +7,7 @@ const HomeDropdown = async() => {
 
     const api = process.env.GET_PROVINCE_API || ''
     const res = await fetch(api)
-    const provinces = await res.json()
+    const provinces = await res.json()   
 
     const totalApi = process.env.GET_MIN_MAX_TOTAL_API || ''
     const totalRes = await fetch(totalApi)
