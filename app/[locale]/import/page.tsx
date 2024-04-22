@@ -27,7 +27,7 @@ const ImportUploadPage = () => {
                     }
                     const answer = {
                         user_id : 1,
-                        city_id : 1,
+                        city_id : city,
                         answer : questionaire.join(','),
                         profile : profile,
                         total : sum
