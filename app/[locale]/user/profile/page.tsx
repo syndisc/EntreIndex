@@ -40,7 +40,6 @@ const UserProfilePage = () => {
     }
 
     function logOut(){
-        console.log("asd");
         
         document.cookie = "auth=; expires=Wed, 05 Aug 2020 23:00:00 UTC";
     }

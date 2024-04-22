@@ -32,7 +32,6 @@ const CityDropdown: React.FC<Dropdown> = async({ city_id, limit}) => {
     const q1 = (q2 - limit.lowest) / 2 + limit.lowest
     const q3 = (limit.highest - q2) / 2 + q2
 
-    console.log(answers);
     let data = {
         // dimension
         dimensi_x1 : 0,

@@ -68,8 +68,8 @@ const FormPage = () => {
         const partA = (({ sector, jenis, status, pendidikan, pengalaman }) => ({ sector, jenis, status, pendidikan, pengalaman }))(sender.data);
         const partB = (({ sector, jenis, status, pendidikan, pengalaman, ...rest }) => rest)(sender.data);
 
-        const profile = Object.values(partA).join(', ')
-        const answer = Object.values(partA).join(', ')
+        const profile = Object.values(partA).join(',')
+        const answer = Object.values(partB).join(',')
         const total = Object.values(partB).reduce((acc: any, curr: any) => acc + curr, 0)
                 
         const data = {

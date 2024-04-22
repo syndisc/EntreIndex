@@ -26,7 +26,6 @@ export default function RootLayout({
   const msg = useMessages()
 
   return (
-    
     <NextIntlClientProvider locale={locale} messages={msg}>
       <html lang={locale} className="overflow-x-hidden">
         <body className={font.className}>
