@@ -12,9 +12,9 @@ const ImportUploadPage = () => {
 
         if(file){
 
-            readXlsxFile(file).then(data => {                
+            readXlsxFile(file).then((data : any) => {                
 
-                data.forEach(datum => {
+                data.forEach((datum:any) => {
                     const questionaire = datum.slice(0,50)
                     const province = datum.slice(50,51)[0]
                     const city = datum.slice(51, 52)[0]

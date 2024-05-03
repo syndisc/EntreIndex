@@ -35,7 +35,7 @@ const FormPage = () => {
                 const answersRes = await fetch(answersAPI)
                 const answers = await answersRes.json()
 
-                const labels = answers.map((answer : Answer) =>{
+                const labels = answers.map((answer : any) =>{
                     const date = new Date(answer.createdAt);
 
                     const day = date.getDate().toString().padStart(2, '0');
@@ -45,7 +45,7 @@ const FormPage = () => {
                     const formattedDate = `${day}:${month}:${year}`;
                     return formattedDate
                 } )
-                const data = answers.map((answer : Answer) => answer.total)
+                const data = answers.map((answer : any) => answer.total)
 
                 setChartData({createdAt: labels, total:data})       
             }
