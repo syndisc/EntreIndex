@@ -205,3 +205,7 @@ export const options = [
 ]
 
 export const gender = ["Male", "Female"]
+
+export const dimension = ["Dimension External Environment", "Dimension Internal Environment", "Dimension Behavioral Aspect", "Dimension Cognitive Aspect", "Dimension Indonesian Entrepreneurial Framework"]
+
+export const subdimension = ["Indicator Government Support and Regulation", "Indicator Network", "Indicator Resources", "Indicator Ability to Innovate Based on Strength and Specialization", "Indicator Opportunities Engagement", "Indicator Entrepreneurship Behavioral Capacity", "Indicator Entrepreneurial Engagement Capacity", "Indicator Entrepreneurial Attitude Capacity", "Indicator Entrepreneurial Capacity", "Indicator Indonesian Entrepreneurial Activity", "Indicator Indonesian Individual Attributes"]

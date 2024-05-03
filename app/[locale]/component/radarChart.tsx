@@ -1,18 +1,26 @@
 "use client"
 import React, { useEffect } from "react";
 import Chart, { ChartConfiguration } from "chart.js";
+import { dimension, subdimension } from "../utility/data";
 
 interface ChartProps {
   total: number[];
   city_name: string;
+  minDimCity: number,
+  minFitCity : number
 }
 
-const RadarChart: React.FC<ChartProps> = ({total, city_name }) => {
+const RadarChart: React.FC<ChartProps> = ({total, city_name, minDimCity, minFitCity }) => {
   useEffect(() => {
+
+    console.log(minDimCity);
+    console.log(minFitCity);
+    
+
     const config : ChartConfiguration = {
         type: 'radar',
         data: {
-            labels: ["Dimensi 1", "Dimensi 2", "Dimensi 3", "Dimensi 4", "Dimensi 5"],
+            labels: ["Dimensi External Environment", "Dimensi Internal Environment", "Dimensi Behavioral Aspect", "Dimensi Cognitive Aspects", "Dimensi Indonesian Entrepreneurial"],
             datasets: [{
                 label: city_name,
                 data: total,
@@ -34,17 +42,24 @@ const RadarChart: React.FC<ChartProps> = ({total, city_name }) => {
         },
       };
 
-    const ctx = (document.getElementById("line-chart") as HTMLCanvasElement)?.getContext("2d");
+    const ctx = (document.getElementById(city_name) as HTMLCanvasElement)?.getContext("2d");
     if (ctx) {
       new Chart(ctx, config);
     }
   }, [total, city_name]);
 
   return (
-    <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-700">
-      <div className="p-4 flex-auto shadow-2xl">
-        <div className="relative h-350-px ">
-          <canvas id="line-chart"></canvas>
+    <div className="flex h-96 w-full mb-6 shadow-lg rounded-3xl bg-white">
+      <div className="h-full">
+        <canvas id={city_name} className="h-full"></canvas>
+      </div>
+      <div className="h-full flex content-between flex-wrap p-6">
+        <div>
+          <b>{dimension[minDimCity]}</b> pada dimensi ini masih perlu untuk dikembang lagi
+        </div>
+        
+        <div>
+        <b>{subdimension[minFitCity]}</b> untuk subdimensi ini masih bisa dikembangkan lagi untuk kota {city_name}
         </div>
       </div>
     </div>

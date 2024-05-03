@@ -3,13 +3,17 @@ export interface FormAnswer{
 }
 
 export interface Answer{
-    id : number,
-    user_id : number,
-    city_id : number,
-    answer : string,
-    profile : string,
-    createdAt : string,
-    total : number
+    result:[{
+        id : number,
+        user_id : number,
+        city_id : number,
+        answer : string,
+        profile : string,
+        createdAt : string,
+        total : number
+    }],
+    minFeatCity : number,
+    minDimCity : number
 }
 
 export interface FormProfile{

@@ -19,7 +19,7 @@ interface AnswerDimension {
     dimensi_5 : number
 }
 
-const CityDropdown: React.FC<Dropdown> = async({ city_id, limit}) => {
+const CityDropdown: React.FC<Dropdown> = async({city_id, limit}) => {
     const api = process.env.GET_CITY_API ? process.env.GET_CITY_API + city_id: ''
     const res = await fetch(api)
     const city = await res.json()  
@@ -33,14 +33,15 @@ const CityDropdown: React.FC<Dropdown> = async({ city_id, limit}) => {
     const q3 = (limit.highest - q2) / 2 + q2
 
     let data = {
-        // dimension
         dimensi_x1 : 0,
         dimensi_x2 : 0,
         dimensi_x3 : 0,
         dimensi_x4 : 0,
         dimensi_x5 : 0,
     }
-    answers.forEach((answer : AnswerDimension )=> {
+
+
+    answers.result.forEach((answer : AnswerDimension )=> {
         data.dimensi_x1 += answer.dimensi_1
         data.dimensi_x2 += answer.dimensi_2
         data.dimensi_x3 += answer.dimensi_3
@@ -48,16 +49,28 @@ const CityDropdown: React.FC<Dropdown> = async({ city_id, limit}) => {
         data.dimensi_x5 += answer.dimensi_5
     });
 
-    const length = answers.length
+    const length = answers.result.length
 
     const arrayOfData = [data.dimensi_x1 / length, data.dimensi_x2 / length, data.dimensi_x3 / length, data.dimensi_x3/ length, data.dimensi_x4/ length, data.dimensi_x5/ length]
+
+
+
+    if(answers.minDimCity.length != undefined){
+        return(
+            <div>
+                
+            </div>
+        )
+    }
+
+    console.log(answers)
 
     return (
         <div>
             {city.name}
-            {answers.length > 0 ? <RadarChart total={arrayOfData} city_name={city.name}/> : ""}
+            {answers.result.length > 0 ? <RadarChart total={arrayOfData} city_name={city.name} minDimCity={answers.minDimCity} minFitCity={answers.minFeatCity}/> : ""}
             <div className='p-6 bg-white rounded-3xl grid grid-cols-data gap-2'>
-                {answers.map((answer : Answer) => {
+                {answers.result.map((answer : any) => {
 
                     let colorStyle: React.CSSProperties = {};
 
@@ -79,6 +92,7 @@ const CityDropdown: React.FC<Dropdown> = async({ city_id, limit}) => {
                         </div>
                     )
                 })}
+                {answers.minDimCity}
             </div>
         </div>
     );

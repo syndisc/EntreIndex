@@ -12,9 +12,6 @@ const page = () => {
           <div className='h-full overflow-y-auto'>
             <HomeDropdown/>
           </div>
-          {/* <div>
-            Right Part
-          </div> */}
         </div>
       </div>
     </div>
