@@ -4,21 +4,19 @@ import Navbar from '../component/navbar'
 import { User } from '../model/user'
 import CardLineChart from '../component/LineChart'
 import { Answer } from '../model/form'
-
-interface AnswerChart{
-    createdAt : [string],
-    total : [number]
-}
+import RadarChart from '../component/radarChart'
 
 const FormPage = () => {
-
-    const [chartData, setChartData] = useState<AnswerChart>()
 
     const [user, setUser] = useState<User>({
         id : 0,
         first_name :"",
         last_name : ""
     })
+    const [cityData, setCityData] = useState<number[]>()
+    const [provData, setProvData] = useState<number[]>()
+    const [lastAnswerData, setLastAnswerData] = useState<number[]>()
+    const [cityName, setCityName] = useState<string>()
 
     useEffect(() => {
         async function LoadUser(){
@@ -31,23 +29,45 @@ const FormPage = () => {
                 const user = await userRes.json();
                 setUser(user);
                 
-                const answersAPI = process.env.GET_USER_ANSWER_API ? process.env.GET_USER_ANSWER_API + user.id : ""
-                const answersRes = await fetch(answersAPI)
-                const answers = await answersRes.json()
+                const data = JSON.parse(sessionStorage.getItem("answer") || "")
+                // console.log(data)
 
-                const labels = answers.map((answer : any) =>{
-                    const date = new Date(answer.createdAt);
+                const cityAPI = process.env.GET_CITY_API + data.city_id
+                const cityRes = await fetch(cityAPI)
+                const city = await cityRes.json()
+                const provinceId = city.province_id
+                // console.log(city)
+                setCityName(city.name)
 
-                    const day = date.getDate().toString().padStart(2, '0');
-                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                    const year = date.getFullYear();
+                // console.log(provinceId) 
 
-                    const formattedDate = `${day}:${month}:${year}`;
-                    return formattedDate
-                } )
-                const data = answers.map((answer : any) => answer.total)
+                const avgProvAPI = process.env.GET_AVERAGE_PROVINCE_DIMENSION || ""
+                const avgProvRes = await fetch(avgProvAPI + provinceId)
+                const avgProv = await avgProvRes.json()
 
-                setChartData({createdAt: labels, total:data})       
+                const avgCityAPI = process.env.GET_AVERAGE_CITY_DIMENSION || ""
+                const avgCityRes = await fetch(avgCityAPI + data.city_id)
+                const avgCity = await avgCityRes.json()
+
+                const lastUserAnswerAPI = process.env.GET_LAST_USER_ANSWER || ""
+                const lastUserAnswerRes = await fetch(lastUserAnswerAPI + user.id)
+                const lastUserAnswer = await lastUserAnswerRes.json()
+
+                console.log(avgCity)
+                console.log(avgProv)
+                // console.log(lastUserAnswer)
+
+                const cityData = [avgCity[0].dim_1, avgCity[0].dim_2, avgCity[0].dim_3, avgCity[0].dim_4, avgCity[0].dim_5]
+                const provData = [avgProv[0].dim_1, avgProv[0].dim_2, avgProv[0].dim_3, avgProv[0].dim_4, avgProv[0].dim_5]
+                const userData = [lastUserAnswer.dimensi_1, lastUserAnswer.dimensi_2, lastUserAnswer.dimensi_3, lastUserAnswer.dimensi_4, lastUserAnswer.dimensi_5]
+
+                console.log(cityData)
+                console.log(provData)
+                console.log(userData)
+
+                setCityData(cityData)
+                setProvData(provData)
+                setLastAnswerData(userData)
             }
         }
         LoadUser()
@@ -56,10 +76,8 @@ const FormPage = () => {
     return (
         <div className='h-auto w-screen bg-primaryLight dark:bg-primaryDark'>
             <Navbar/>
-            <div className='h-93.2vh w-screen flex justify-center content-center flex-wrap'>
-                <div className='h-85vh w-6/12 bg-secondaryLight dark:bg-secondaryDark p-6 overflow-y-auto rounded-3xl shadow-2xl'>
-                    <CardLineChart label={chartData ? chartData?.createdAt : [""]} total={chartData ? chartData?.total : [0]} user_name={user? user.first_name : ''}/>
-                </div>
+            <div className='h-80vh w-screen flex justify-center content-center flex-wrap bg-white'>
+                <RadarChart city={cityData} prov={provData} user={lastAnswerData}/>
             </div>
         </div>
     )

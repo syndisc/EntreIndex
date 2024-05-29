@@ -15,10 +15,10 @@ const ImportUploadPage = () => {
             readXlsxFile(file).then((data : any) => {                
 
                 data.forEach((datum:any) => {
-                    const questionaire = datum.slice(0,50)
-                    const province = datum.slice(50,51)[0]
-                    const city = datum.slice(51, 52)[0]
-                    const profile = datum.slice(52,58).join(',')
+                    console.log(datum)
+                    const questionaire = datum.slice(0,55)
+                    const city = datum.slice(55, 56)[0]
+                    const profile = datum.slice(56,64).join(',')
 
                     let sum = 0;
 
@@ -33,6 +33,9 @@ const ImportUploadPage = () => {
                         total : sum
                     }
                     const api = process.env.POST_ANSWER_API || ""
+
+                    console.log(answer)
+
                     SendAPIRequest(api,"POST", answer)
                 });
             })  

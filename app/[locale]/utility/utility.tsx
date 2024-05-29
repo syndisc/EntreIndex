@@ -3,6 +3,6 @@ export function ChangeSpace(text : string){
 }
 
 export function ChangeToIndex(int : number){
-    const total = (int - 50) /150 * 100
+    const total = (int - 55) / 330 * 100
     return total.toFixed(2)
 }

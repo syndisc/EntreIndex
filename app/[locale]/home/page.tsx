@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import Navbar from '../component/navbar'
 
@@ -12,7 +13,8 @@ const page = async() => {
   const cityHighestAPI = process.env.GET_HIGHEST_AVG_CITY || ""
 
   const provincesRes = await fetch(provinceHighestAPI)
-  const provinces : [AverageProvince] =  await provincesRes.json()
+  const provinces : [any] =  await provincesRes.json()
+  console.log(provinces)
 
   const citiesRes = await fetch(cityHighestAPI)
   const cities : [AverageCity] = await citiesRes.json()

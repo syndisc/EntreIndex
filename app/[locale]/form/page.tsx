@@ -4,7 +4,7 @@ import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { Model } from 'survey-core';
 import { Survey } from 'survey-react-ui';
 import 'survey-core/defaultV2.min.css';
-import { surveyJson2} from './survey'
+import { surveyJson2 } from './survey'
 
 import { City, Province } from '../model/province';
 import { ChangeSpace } from '../utility/utility';
@@ -65,20 +65,32 @@ const FormPage = () => {
     }, [])
 
     const alertResults = ((sender: any) => {
-        const partA = (({ sector, jenis, status, pendidikan, pengalaman }) => ({ sector, jenis, status, pendidikan, pengalaman }))(sender.data);
-        const partB = (({ sector, jenis, status, pendidikan, pengalaman, ...rest }) => rest)(sender.data);
+        const partA = (({ sector, jenis, status, kelamin, usia, pendidikan, pengalaman }) => ({ sector, jenis, status, kelamin, usia, pendidikan, pengalaman }))(sender.data);
+        const partB = (({ sector, jenis, status, kelamin, usia, pendidikan, pengalaman, ...rest }) => rest)(sender.data);
 
         const profile = Object.values(partA).join(',')
         const answer = Object.values(partB).join(',')
-        const total = Object.values(partB).reduce((acc: any, curr: any) => acc + curr, 0)
+        console.log(partB)
+        let sum = 0;
+
+// Iterate through each key-value pair in the dictionary
+        for (const key in partB) {
+            if (partB.hasOwnProperty(key)) {
+                // Convert the value to a number and add it to the sum
+                sum += Number(partB[key]);
+            }
+        }
+
                 
         const data = {
-            user_id : user?.id,
+            user_id : user?.id || 1,
             city_id : parseInt(chosenCities.toString()),
             answer : answer,
             profile : profile,
-            total : total
+            total : sum
         }
+
+        sessionStorage.setItem("answer", JSON.stringify(data))
 
         const answerAPI = process.env.SUBMIT_FORM_API || ""
         SendAPIRequest(answerAPI, "POST", data)
@@ -125,6 +137,16 @@ const FormPage = () => {
             </div>
         )
     }
+
+    const selectAll = (answer: string) => {
+        const data: { [key: string]: string } = {};
+        // console.log(survey.getAllQuestions())
+        survey.getAllQuestions().forEach((question) => {
+            !isNaN(parseInt(question.name)) ? data[question.name] = answer : data[question.name] = question.value
+            // console.log(data[question.name])
+        });
+        survey.data = data;
+    };
     
     return (
         <div className='bg-gradient-to-br  from-blueThird to-blueFourth'>
@@ -155,7 +177,16 @@ const FormPage = () => {
                     {page.name}
                 </button>
             </div>
-            : <div className='w-full justify-center flex flex-col items-center'><Survey model={survey} />
+            : <div className='w-full justify-center flex flex-col items-center'>
+                <div className='w-1/2 flex justify-evenly'> 
+                    <button className='border p-2 bg-white rounded-2xl' onClick={() => selectAll('1')}>Sangat Tidak Setuju</button>
+                    <button className='border p-2 bg-white rounded-2xl' onClick={() => selectAll('2')}>Tidak Setuju</button>
+                    <button className='border p-2 bg-white rounded-2xl' onClick={() => selectAll('3')}>Sedikit Tidak Setuju</button>
+                    <button className='border p-2 bg-white rounded-2xl' onClick={() => selectAll('4')}>Sedikit Setuju</button>
+                    <button className='border p-2 bg-white rounded-2xl' onClick={() => selectAll('5')}>Setuju</button>
+                    <button className='border p-2 bg-white rounded-2xl' onClick={() => selectAll('6')}>Sangat Setuju</button>
+                </div>
+                <Survey model={survey} />
             <button className='w-auto p-2 m-4 rounded-3xl h-10 bg-blueThird' onClick={ChangePage}>
                     {page.name}
                 </button>
